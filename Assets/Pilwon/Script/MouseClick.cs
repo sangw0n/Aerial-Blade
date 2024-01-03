@@ -69,7 +69,6 @@ public class MouseClick : MonoBehaviour
                     switch (cube.ability)
                     {
                         case Ability.Heal:
-                            StatManager.instance.player.health = StatManager.instance.maxHealth;
                             MenuUiManager.instance.StartCoroutine(MenuUiManager.instance.NoticePanel(Ui.HealNoticePanel, 1.5f));
                             break;
                         default:
