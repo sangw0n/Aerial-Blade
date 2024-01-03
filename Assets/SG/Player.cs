@@ -5,12 +5,15 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]
-    int MaxHp = 10;
-    [SerializeField]
-    int CurHp = 10;
+    public Vector2 inputVec;
+
+    public float maxHp;
+    public float curHp;
+
+    public float health;
+    
     Rigidbody2D rb;
-    [SerializeField] float movespeed;
+    public float moveSpeed;
     [SerializeField]
     Slider Hpbar;
     Animator anim;
@@ -47,14 +50,14 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        CurHp = MaxHp;
+        curHp = maxHp;
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
 
     void Update()
     {
-        Hpbar.value = Mathf.Lerp(Hpbar.value, (float)CurHp / (float)MaxHp, Time.deltaTime * 4); ;
+        Hpbar.value = Mathf.Lerp(Hpbar.value, (float)curHp / (float)maxHp, Time.deltaTime * 4); ;
         Move();
         Skill();
         Dash();
@@ -116,9 +119,11 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        float x = Input.GetAxis("Horizontal") * movespeed;
+        inputVec.x = Input.GetAxisRaw("Horizontal");
+        inputVec.y = Input.GetAxisRaw("Vertical");
 
-        float y = Input.GetAxis("Vertical") * movespeed;
+        Vector2 dirVec = inputVec.normalized * moveSpeed;
+        rb.velocity = dirVec;
 
         if (Mathf.Abs(rb.velocity.x) > 0.1f)
         {
@@ -131,9 +136,6 @@ public class Player : MonoBehaviour
                 transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             }
         }
-
-        rb.velocity = new Vector2(x, rb.velocity.y);
-        rb.velocity = new Vector2(rb.velocity.x, y);
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
         {
             anim.SetBool("run", true);
@@ -352,8 +354,13 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag == "MonsterAttack")
         {
-            CurHp--;
+            curHp--;
         }
+    }
+
+    private void OnEnable()
+    {
+        StatManager.instance.Init();
     }
 }
 

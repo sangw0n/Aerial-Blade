@@ -5,7 +5,6 @@ using UnityEngine;
 public class StatManager : MonoBehaviour
 {
     public static StatManager instance { get; private set; }
-    public float heatlh;
     public int att;
 
     [Header("[ Touch Var Header ]")]
@@ -25,8 +24,6 @@ public class StatManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        player = GameObject.FindWithTag("Player").GetComponent<Player>();
-
         // Player Var Init
         baseAtt = att;
         baseCoolTime = coolTime;
@@ -34,27 +31,27 @@ public class StatManager : MonoBehaviour
 
     public void Init()
     {
-        //player.health = maxHealth;
-        //player.HitDamage = att;
-        //player.coolTime = this.coolTime;
-        //player.movespeed = speed;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        player.maxHp = maxHealth;
+        player.curHp = maxHealth;
+        player.HitDamage = att;
+        player.coolTime = this.coolTime;
+        player.moveSpeed = speed;
     }
 
     public void AttUpgrade(int rate)
     {
         att = baseAtt + (att * rate);
-        Init();
     }
 
     public void AttSpeedUpgrade(float rate)
     {
         coolTime = baseCoolTime - rate;
-        Init();
     }
 
     public void healthUpgrade(float rate)
     {
         maxHealth = maxHealth + (maxHealth * rate);
-        Init();
     }
 }

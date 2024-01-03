@@ -1084,7 +1084,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 806bd1a8046a2b143aaa7f878223782d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: 0
+  player: {fileID: 0}
+  monster: {fileID: 0}
 --- !u!1 &290471506
 GameObject:
   m_ObjectHideFlags: 0
@@ -2831,13 +2832,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bce660d788affa04ca08b0ad778e54bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heatlh: 0
-  att: 0
-  coolTime: 0
-  maxHealth: 0
-  baseAtt: 0
-  baseCoolTime: 0
-  speed: 0
+  att: 1
+  coolTime: 0.28
+  maxHealth: 10
+  baseAtt: 1
+  baseCoolTime: 0.28
+  speed: 500
   player: {fileID: 0}
 --- !u!4 &1451397219
 Transform:
