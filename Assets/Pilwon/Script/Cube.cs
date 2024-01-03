@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Ability { Heal, Skill, DamageUP, AttSpeedUP, Boss}
+public enum Ability { HealthUp, Skill, DamageUP, AttSpeedUP, Boss}
 public enum CubeLock { Lock, Unlock }
 
 public class Cube : MonoBehaviour

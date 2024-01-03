@@ -64,15 +64,22 @@ public class MouseClick : MonoBehaviour
                     //if (isZooming) return;
                     Dungeon dungeon = InGameManager.instance.dungeon.GetComponent<Dungeon>();
                     dungeon.Init(cube.bossData, cube.id);
-
                     MenuUiManager.instance.Show(new Vector3(715, 0, 0), Ui.DungeonPanel);
-                    switch (cube.ability)
+
+                    if(cube.cubeLock == CubeLock.Unlock)
                     {
-                        case Ability.Heal:
-                            MenuUiManager.instance.StartCoroutine(MenuUiManager.instance.NoticePanel(Ui.HealNoticePanel, 1.5f));
-                            break;
-                        default:
-                            break;
+                        switch (cube.ability)
+                        {
+                            case Ability.DamageUP:
+                            case Ability.AttSpeedUP:
+                            case Ability.HealthUp:
+                                BuffManager.instance.Init(cube.id);
+                                MenuUiManager.instance.Show(new Vector3(-715, 0, 0), Ui.AbilityPanel);
+                                break;
+
+                            default:
+                                break;
+                        }
                     }
                     isZooming = true;
                     isZoom = true;
@@ -83,7 +90,9 @@ public class MouseClick : MonoBehaviour
                     tapCount = 0;
 
                     //if (isZoomOuting) return;
-                    MenuUiManager.instance.Show(new Vector3(1250, 0, 0), Ui.DungeonPanel);
+                    MenuUiManager.instance.Hide(new Vector3(1250, 0, 0), Ui.DungeonPanel);
+                    MenuUiManager.instance.Hide(new Vector3(-1250, 0, 0), Ui.AbilityPanel);
+
 
                     isZoomOuting = true;
                     isZoom = false;
@@ -91,6 +100,7 @@ public class MouseClick : MonoBehaviour
             }
         }
     }
+
 
     private IEnumerator IsZoom(bool isSelect, float time)
     {
