@@ -1,28 +1,45 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class Player : MonoBehaviour
 {
+    [SerializeField]
+    int MaxHp = 10;
+    [SerializeField]
+    int CurHp = 10;
     Rigidbody2D rb;
     [SerializeField] float movespeed;
+    [SerializeField]
+    Slider Hpbar;
     Animator anim;
     float curTime;
     float SkillcurTime;
+    public float Skill2curTime;
+    
     public float DashcurTime;
-    [SerializeField] int HitDamage = 1;
+    [SerializeField] public int HitDamage = 1;
     public float coolTime = 0.5f;
     public float SkillcoolTime = 5f;
+    public float Skill2coolTime = 5f;
+
     public float DashcoolTime = 1f;
 
     public Transform pos;
     public Transform Skillpos;
+    public Transform Skill2pos;
+
     public float DashSpeed = 2f;
 
     public Vector2 boxSize;
     public Vector2 skillboxSize;
+    public Vector2 skill2boxSize;
+
     [SerializeField] GameObject SlashPtc;
     [SerializeField] GameObject SlashPtc2;
     [SerializeField] GameObject SkillPtc;
+    [SerializeField] GameObject POWER;
 
 
     private bool isSlashPtc1Active = true;
@@ -30,16 +47,18 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        CurHp = MaxHp;
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
 
     void Update()
     {
+        Hpbar.value = Mathf.Lerp(Hpbar.value, (float)CurHp / (float)MaxHp, Time.deltaTime * 4); ;
         Move();
         Skill();
         Dash();
-
+        Skill2();
         if (curTime <= 0)
         {
             if (Input.GetKey(KeyCode.X))
@@ -91,6 +110,8 @@ public class Player : MonoBehaviour
         Gizmos.DrawWireCube(pos.position, boxSize);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(Skillpos.position, skillboxSize);
+        Gizmos.color = Color.black;
+        Gizmos.DrawWireCube(Skill2pos.position, skill2boxSize);
     }
 
     void Move()
@@ -162,6 +183,7 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.A))
             {
+                anim.SetTrigger("SKill1");
                 StartCoroutine(SkillCor());
                 SkillcurTime = SkillcoolTime; // 여기서 SkillcurTime을 초기화해야 합니다.
             }
@@ -170,6 +192,25 @@ public class Player : MonoBehaviour
         {
             SkillcurTime -= Time.deltaTime;
         }
+    }
+    void Skill2()
+    {
+        if (Skill2curTime <= 0)
+        {
+
+            if (Input.GetKey(KeyCode.S))
+            {
+                StartCoroutine(SKill2Cor());
+                Skill2curTime = Skill2coolTime;
+
+            }
+            
+        }
+        else
+        {
+            Skill2curTime -= Time.deltaTime;
+        }
+
     }
 
     IEnumerator SkillCor()
@@ -198,16 +239,15 @@ public class Player : MonoBehaviour
     {
         if (DashcurTime <= 0)
         {
-            if (Input.GetKey(KeyCode.C))
+            if (Input.GetKeyDown(KeyCode.C))
             {
-                if (Mathf.Abs(rb.velocity.x) > 0.1f || Mathf.Abs(rb.velocity.y) > 0.1f)
-                {
-                    Vector2 dashDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
-                    rb.velocity = dashDirection * DashSpeed;
-                    StartCoroutine(DashTrigger());
+                Vector2 dashDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
 
-                }
-                //DashcurTime = DashcoolTime;
+               
+                transform.Translate(dashDirection * DashSpeed);
+
+                StartCoroutine(DashTrigger());
+                DashcurTime = DashcoolTime;
             }
         }
         else
@@ -216,10 +256,104 @@ public class Player : MonoBehaviour
         }
     }
 
+
     IEnumerator DashTrigger()
     {
         GetComponent<Collider2D>().isTrigger = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.8f);
         GetComponent<Collider2D>().isTrigger = false;
     }
+   IEnumerator SKill2Cor()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            AudioManager.instance.PlaySound(transform.position, 0, Random.Range(2.0f, 2.0f), 1);
+
+            if (transform.localScale.x < 0)
+            {
+                Destroy(Instantiate(isSlashPtc1Active ? SlashPtc : SlashPtc2, transform.position + new Vector3(-0.5f, 0f, 0), Quaternion.identity), 3f);
+
+                // sideattack1 또는 sideattack2 트리거 발동
+                anim.SetTrigger(isSideAttack1 ? "SideAttack" : "SideAttack2");
+            }
+            if (transform.localScale.x > 0)
+            {
+                Destroy(Instantiate(isSlashPtc1Active ? SlashPtc : SlashPtc2, transform.position + new Vector3(0.5f, 0f, 0), Quaternion.Euler(new Vector3(0, 180, 0))), 3f);
+
+                // sideattack1 또는 sideattack2 트리거 발동
+                anim.SetTrigger(isSideAttack1 ? "SideAttack" : "SideAttack2");
+            }
+
+            Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
+            foreach (Collider2D collider in collider2Ds)
+            {
+                if (collider.tag == "Monster")
+                {
+                    collider.GetComponent<Monster>().TakeDamage(HitDamage);
+                }
+                if (collider.tag == "BossMonster")
+                {
+                    collider.GetComponent<MiniBossOne>().TakeDamage(HitDamage);
+                }
+            }
+
+
+            isSlashPtc1Active = !isSlashPtc1Active; // 번갈아가면서 활성화 여부를 변경
+            isSideAttack1 = !isSideAttack1;  // sideattack1과 sideattack2를 번갈아가면서 발동하기 위해 변경
+            yield return new WaitForSeconds(0.07f);
+        }
+        
+        yield return new WaitForSeconds(0.5f);
+        AudioManager.instance.PlaySound(transform.position, 0, Random.Range(2.0f, 2.0f), 1);
+        if (transform.localScale.x < 0)
+        {
+            Destroy(Instantiate(POWER, transform.position + new Vector3(-0.5f, 0f, 0), Quaternion.identity), 3f);
+
+            // sideattack1 또는 sideattack2 트리거 발동
+            anim.SetTrigger("SideAttack");
+        }
+        if (transform.localScale.x > 0)
+        {
+            Destroy(Instantiate(POWER, transform.position + new Vector3(0.5f, 0f, 0), Quaternion.Euler(new Vector3(0, 180, 0))), 3f);
+
+            // sideattack1 또는 sideattack2 트리거 발동
+            anim.SetTrigger("SideAttack");
+        }
+        Collider2D[] collider2D = Physics2D.OverlapBoxAll(Skill2pos.position, skill2boxSize, 0); ;
+        foreach (Collider2D collider in collider2D)
+        {
+            
+            if (collider.tag == "Monster")
+            {
+                HitDamage *= 5;
+                collider.GetComponent<Monster>().TakeDamage(HitDamage);
+                yield return new WaitForSeconds(0.1f);
+                HitDamage /= 5;
+
+
+            }
+            if (collider.tag == "BossMonster")
+            {
+                HitDamage *= 5;
+                collider.GetComponent<MiniBossOne>().TakeDamage(HitDamage);
+                yield return new WaitForSeconds(0.1f);
+                HitDamage /= 5;
+
+            }
+           
+
+
+        }
+       ;
+
+
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "MonsterAttack")
+        {
+            CurHp--;
+        }
+    }
 }
+

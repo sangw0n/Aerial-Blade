@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +25,9 @@ public class Monster : MonoBehaviour
     SpriteRenderer spriter;
     [SerializeField]
     Slider Hpbar;
+    [SerializeField]
+    GameObject Damagetext;
+    [SerializeField] float knockbackForce = 5f;
 
     float timeSinceLastAttack = 0f;
 
@@ -36,6 +40,7 @@ public class Monster : MonoBehaviour
     void FixedUpdate()
     {
         Hpbar.value = (float)CurHP / (float)MaxHP;
+       
         Die();
         if (!isLive)
             return;
@@ -80,11 +85,23 @@ public class Monster : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
-        Destroy(Instantiate(HitPtc,transform.position, Quaternion.identity),3f);
-       CurHP = CurHP - damage;
+        Destroy(Instantiate(HitPtc, transform.position, Quaternion.identity), 3f);
+        Destroy(Instantiate(Damagetext, transform.position + new Vector3(0, 1.7f, 0), Quaternion.identity), 3f);
+        CurHP -= damage;
         CameraShake.instance.Shake();
-       
+
+        
+        if (CurHP > 0)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag(playerTag);
+            if (player != null)
+            {
+                Vector2 knockbackDirection = (transform.position - player.transform.position).normalized;
+                transform.Translate(knockbackDirection * knockbackForce);
+            }
+        }
     }
+
     void Die()
     {
         if (CurHP <= 0)
@@ -92,4 +109,5 @@ public class Monster : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
 }

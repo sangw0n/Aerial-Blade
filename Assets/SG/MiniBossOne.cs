@@ -27,7 +27,8 @@ public class MiniBossOne : MonoBehaviour
     Slider Hpbar2;
     bool isLive = true;
     bool hasFired = false;
-
+    [SerializeField]
+    GameObject Damagetext;
     Rigidbody2D rigid;
     SpriteRenderer spriter;
 
@@ -41,7 +42,7 @@ public class MiniBossOne : MonoBehaviour
 
     void Update()
     {
-        Hpbar.value = (float)CurHP / (float)MaxHP;
+        Hpbar.value = Mathf.Lerp(Hpbar.value, (float)CurHP / (float)MaxHP, Time.deltaTime * 20); ;
         Hpbar2.value = Mathf.Lerp(Hpbar2.value, (float)CurHP / (float)MaxHP, Time.deltaTime * 4); ;
         if (CurHP <= 0)
         {
@@ -108,6 +109,7 @@ public class MiniBossOne : MonoBehaviour
     public void TakeDamage(int damage)
     {
         Destroy(Instantiate(HitPtc, transform.position, Quaternion.identity), 3f);
+        Destroy(Instantiate(Damagetext, transform.position + new Vector3(0,1.5f,0), Quaternion.identity), 3f);
         CurHP = CurHP - damage;
         CameraShake.instance.Shake();
 

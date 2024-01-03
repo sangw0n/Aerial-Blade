@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    public Player player;
+    public Monster monster;
+
     private void Awake()
     {
         if (instance == null) instance = this;

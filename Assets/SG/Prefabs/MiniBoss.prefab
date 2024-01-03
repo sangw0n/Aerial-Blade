@@ -283,7 +283,7 @@ Transform:
   m_GameObject: {fileID: 2485409458577846673}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.25, y: 8.92, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4887926721048725251}
@@ -330,7 +330,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.6415094, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -402,17 +402,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  stoppingDistance: 6
-  attackCooldown: 0.2
+  stoppingDistance: 8
+  attackCooldown: 5
   playerTag: Player
   bulletPrefab: {fileID: 8075235774488931034, guid: 92fff4c737416d74d97b365f3b8099b0, type: 3}
   AttackCount: 0
   MaxCount: 10
-  MaxHP: 10
-  CurHP: 10
+  MaxHP: 50
+  CurHP: 50
   HitPtc: {fileID: 1753279311565200, guid: a5986da717b87c046b2b6f8a0c583b45, type: 3}
   Hpbar: {fileID: 4364372371521594249}
   Hpbar2: {fileID: 3451522534774498375}
+  Damagetext: {fileID: 1470639079662069097, guid: fb77199ffa40d9144a45ba90e8ebadbf, type: 3}
 --- !u!1 &3303236671737426837
 GameObject:
   m_ObjectHideFlags: 0

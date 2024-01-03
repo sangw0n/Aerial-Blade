@@ -130,6 +130,8 @@ MonoBehaviour:
   CurHP: 5
   HitPtc: {fileID: 1753279311565200, guid: a5986da717b87c046b2b6f8a0c583b45, type: 3}
   Hpbar: {fileID: 2988988550458189605}
+  Damagetext: {fileID: 1470639079662069097, guid: ab750860f0873b44d8160485eb6fda06, type: 3}
+  knockbackForce: 0.5
 --- !u!61 &91716871528984541
 BoxCollider2D:
   m_ObjectHideFlags: 0
