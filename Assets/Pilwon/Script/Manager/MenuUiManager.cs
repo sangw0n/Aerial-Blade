@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 
 public class MenuUiManager : MonoBehaviour
@@ -8,6 +9,7 @@ public class MenuUiManager : MonoBehaviour
     public static MenuUiManager instance;
 
     [SerializeField] private UI[] MenuUi;
+    [SerializeField] private Button button;
 
     private void Awake()
     {
@@ -17,6 +19,8 @@ public class MenuUiManager : MonoBehaviour
 
     public void Show(Vector3 pos, Ui ui)
     {
+        button.gameObject.SetActive(false);
+
         RectTransform rect = MenuUi[(int)ui].GetComponent<RectTransform>();
         rect.DOLocalMove(pos, 0.75f, false);
     }

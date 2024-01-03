@@ -5,12 +5,12 @@ using UnityEngine;
 public class StatManager : MonoBehaviour
 {
     public static StatManager instance { get; private set; }
-    public int att;
+    public float att;
 
     [Header("[ Touch Var Header ]")]
     public float coolTime;
     public float maxHealth;
-    public int baseAtt;
+    public float baseAtt;
     public float baseCoolTime;
 
     public float speed;
@@ -40,7 +40,7 @@ public class StatManager : MonoBehaviour
         player.moveSpeed = speed;
     }
 
-    public void AttUpgrade(int rate)
+    public void AttUpgrade(float rate)
     {
         att = baseAtt + (att * rate);
     }

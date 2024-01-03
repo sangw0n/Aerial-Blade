@@ -28,6 +28,7 @@ public class BuffManager : MonoBehaviour
     [Header("[ Buff Panel Header ]")]
     [SerializeField] private TMP_Text[] text;
     [SerializeField] private Image icon;
+    [SerializeField] private Button button;
 
     private void Awake()
     {
@@ -47,5 +48,44 @@ public class BuffManager : MonoBehaviour
         text[2].text = string.Format("- {0} Gold", buff.upgradeMoney[buff.upgradeCount]);
 
         icon.sprite = buff.Icon;
+    }
+
+    private void UpgradeButton(Ability ability)
+    {
+        GameManager gameMgr = GameManager.instance;
+        Buff buff = this.buff[(int)ability];
+        UpgeadeMaxCheck(ability);
+
+        switch (ability)
+        {
+            case Ability.DamageUP:
+            case Ability.AttSpeedUP:
+            case Ability.HealthUp:
+                if (gameMgr.gold >= buff.upgradeMoney[buff.upgradeCount])
+                {
+                    gameMgr.gold -= buff.upgradeMoney[buff.upgradeCount];
+                    StatManager.instance.AttUpgrade(buff.buffNum[buff.upgradeCount]);
+                    buff.upgradeCount++;
+                }
+                else
+                {
+                    // ¶ò¼Ò¸® Àç»ý
+                    Debug.Log("µ· ¾øÀ½ ¤»¤»");
+                }
+                break;
+        }
+    }
+
+    private void UpgeadeMaxCheck(Ability ability)
+    {
+        if(buff[(int)ability].upgradeCount == buff[(int)ability].buffNum.Length - 1)
+        {
+            button.interactable = false;
+            return;
+        }
+        else
+        {
+            button.interactable = true;
+        }
     }
 }
