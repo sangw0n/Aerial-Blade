@@ -75,6 +75,7 @@ public class MouseClick : MonoBehaviour
                             case Ability.HealthUp:
                                 BuffManager.instance.Init(cube.id);
                                 MenuUiManager.instance.Show(new Vector3(-715, 0, 0), Ui.AbilityPanel);
+                                MenuUiManager.instance.Show(new Vector3(0, 435, 0), Ui.GoldPanel);
                                 break;
 
                             default:
@@ -92,6 +93,8 @@ public class MouseClick : MonoBehaviour
                     //if (isZoomOuting) return;
                     MenuUiManager.instance.Hide(new Vector3(1250, 0, 0), Ui.DungeonPanel);
                     MenuUiManager.instance.Hide(new Vector3(-1250, 0, 0), Ui.AbilityPanel);
+                    MenuUiManager.instance.Hide(new Vector3(0, 714, 0), Ui.GoldPanel);
+
 
 
                     isZoomOuting = true;
