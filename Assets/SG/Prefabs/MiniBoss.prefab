@@ -267,6 +267,7 @@ GameObject:
   - component: {fileID: 2485409458577846679}
   - component: {fileID: 2485409458577846890}
   - component: {fileID: 6774814073894913975}
+  - component: {fileID: -4589018146534701022}
   m_Layer: 8
   m_Name: MiniBoss
   m_TagString: BossMonster
@@ -414,6 +415,27 @@ MonoBehaviour:
   Hpbar: {fileID: 4364372371521594249}
   Hpbar2: {fileID: 3451522534774498375}
   Damagetext: {fileID: 1470639079662069097, guid: ab750860f0873b44d8160485eb6fda06, type: 3}
+--- !u!95 &-4589018146534701022
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2485409458577846673}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bb60a6f9c54ca21409d63bd60e331829, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3303236671737426837
 GameObject:
   m_ObjectHideFlags: 0

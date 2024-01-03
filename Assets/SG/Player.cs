@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     public float Skill2curTime;
     
     public float DashcurTime;
-    [SerializeField] public int HitDamage = 1;
+    [SerializeField] public float HitDamage = 1;
     public float coolTime = 0.5f;
     public float SkillcoolTime = 5f;
     public float Skill2coolTime = 5f;

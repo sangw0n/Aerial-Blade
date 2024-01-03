@@ -16,9 +16,9 @@ public class MiniBossOne : MonoBehaviour
     [SerializeField] int AttackCount;
     [SerializeField] int MaxCount = 10;
     [SerializeField]
-    int MaxHP = 10;
+    float MaxHP = 10;
     [SerializeField]
-    int CurHP = 10;
+    float CurHP = 10;
     [SerializeField]
     GameObject HitPtc;
     [SerializeField]
@@ -104,9 +104,18 @@ public class MiniBossOne : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag(playerTag);
 
         if (player != null)
-            spriter.flipX = player.transform.position.x < transform.position.x;
+        {
+            if (player.transform.position.x < transform.position.x)
+            {
+                transform.localScale = new Vector3(3, 3, 3);
+            }
+            else
+            {
+                transform.localScale = new Vector3(-3, 3, 3);
+            }
+        }
     }
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         Destroy(Instantiate(HitPtc, transform.position, Quaternion.identity), 3f);
         Destroy(Instantiate(Damagetext, transform.position + new Vector3(0,1.5f,0), Quaternion.identity), 3f);

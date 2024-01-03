@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Monster : MonoBehaviour
 {
+    Animator anim;
     [SerializeField] float speed;
     [SerializeField] float stoppingDistance;
     [SerializeField] float attackCooldown = 2f;
@@ -16,9 +17,9 @@ public class Monster : MonoBehaviour
     bool isLive = true;
     bool hasFired = false;
     [SerializeField]
-    int MaxHP = 10;
+    float MaxHP = 10;
     [SerializeField]
-    int CurHP = 10 ;
+    float CurHP = 10 ;
     [SerializeField]
     GameObject HitPtc;
     Rigidbody2D rigid;
@@ -29,7 +30,7 @@ public class Monster : MonoBehaviour
     GameObject Damagetext;
     [SerializeField] float knockbackForce = 5f;
     [SerializeField]
-    bool Attacktrue = true;
+    bool Attacktrue = false;
 
     float timeSinceLastAttack = 0f;
 
@@ -37,13 +38,14 @@ public class Monster : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         spriter = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
 
     void FixedUpdate()
     {
         Hpbar.value = (float)CurHP / (float)MaxHP;
        
-        Die();
+        StartCoroutine(Die());
         if (!isLive)
             return;
 
@@ -85,9 +87,11 @@ public class Monster : MonoBehaviour
         if (player != null)
             spriter.flipX = player.transform.position.x < transform.position.x;
     }
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
+       
         StartCoroutine(Attackbool());
+      
         Destroy(Instantiate(HitPtc, transform.position, Quaternion.identity), 3f);
         Destroy(Instantiate(Damagetext, transform.position + new Vector3(0, 1.7f, 0), Quaternion.identity), 3f);
         CurHP -= damage;
@@ -105,10 +109,17 @@ public class Monster : MonoBehaviour
         }
     }
 
-    void Die()
+   IEnumerator Die()
     {
         if (CurHP <= 0)
         {
+            anim.SetTrigger("Die");
+            gameObject.tag = "Untagged";
+            GetComponent<Collider2D>().isTrigger = true;
+            rigid.simulated = false;
+            Hpbar.gameObject.SetActive(false);
+
+            yield return new WaitForSeconds(2f);
             Destroy(gameObject);
         }
     }
