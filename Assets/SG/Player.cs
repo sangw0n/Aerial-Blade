@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,12 +10,13 @@ public class Player : MonoBehaviour
     GameObject Dashpt;
     bool isdash = false;
     public Vector2 inputVec;
+   
 
     public float maxHp;
     public float curHp;
 
     public float health;
-    
+
     Rigidbody2D rb;
     public float moveSpeed;
     [SerializeField]
@@ -22,13 +24,18 @@ public class Player : MonoBehaviour
     Animator anim;
     float curTime;
     float SkillcurTime;
+    [SerializeField]
+    float Skill3curTime;
+
     public float Skill2curTime;
-    
+
     public float DashcurTime;
     [SerializeField] public float HitDamage = 1;
     public float coolTime = 0.5f;
     public float SkillcoolTime = 5f;
     public float Skill2coolTime = 5f;
+    public float Skill3coolTime = 5f;
+
 
     public float DashcoolTime = 1f;
 
@@ -46,7 +53,15 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject SlashPtc2;
     [SerializeField] GameObject SkillPtc;
     [SerializeField] GameObject POWER;
+    [SerializeField] GameObject POWER2;
+    [SerializeField] GameObject Eyeptc;
+    [SerializeField] GameObject Dark;
 
+
+    [SerializeField]
+    SpriteRenderer spriteRenderer;
+    [SerializeField] Color playerA;
+    bool NeverDie = false;
 
     private bool isSlashPtc1Active = true;
     private bool isSideAttack1 = true;  // sideattack과 sideattack2를 번갈아가며 발동하기 위한 변수
@@ -56,10 +71,24 @@ public class Player : MonoBehaviour
         curHp = maxHp;
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+
     }
 
     void Update()
     {
+        if (Skill3curTime <= 0)
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+        {
+            StartCoroutine(MoveToMonsters());
+            Skill3curTime = Skill3coolTime;
+            }
+            
+        }
+        else
+        {
+            Skill3curTime -= Time.deltaTime;
+        }
         Hpbar.value = Mathf.Lerp(Hpbar.value, (float)curHp / (float)maxHp, Time.deltaTime * 4); ;
         Move();
         Skill();
@@ -69,7 +98,7 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.X))
             {
-                AudioManager.instance.PlaySound(transform.position, 0, Random.Range(2.0f, 2.0f), 1);
+                AudioManager.instance.PlaySound(transform.position, 0, Random.Range(1.4f, 2.5f), 1);
 
                 if (transform.localScale.x < 0)
                 {
@@ -124,7 +153,7 @@ public class Player : MonoBehaviour
     {
         if (isdash)
             return;
-        
+
         inputVec.x = Input.GetAxisRaw("Horizontal");
         inputVec.y = Input.GetAxisRaw("Vertical");
 
@@ -189,8 +218,9 @@ public class Player : MonoBehaviour
     {
         if (SkillcurTime <= 0)
         {
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.D))
             {
+                AudioManager.instance.PlaySound(transform.position, 2, Random.Range(1.4f, 1.7f), 1);
                 anim.SetTrigger("SKill1");
                 StartCoroutine(SkillCor());
                 SkillcurTime = SkillcoolTime; // 여기서 SkillcurTime을 초기화해야 합니다.
@@ -212,7 +242,7 @@ public class Player : MonoBehaviour
                 Skill2curTime = Skill2coolTime;
 
             }
-            
+
         }
         else
         {
@@ -272,15 +302,15 @@ public class Player : MonoBehaviour
 
     IEnumerator DashTrigger()
     {
-        GetComponent<Collider2D>().isTrigger = true;
+        NeverDie = true;
         yield return new WaitForSeconds(1f);
-        GetComponent<Collider2D>().isTrigger = false;
+        NeverDie = false;
     }
-   IEnumerator SKill2Cor()
+    IEnumerator SKill2Cor()
     {
         for (int i = 0; i < 10; i++)
         {
-            AudioManager.instance.PlaySound(transform.position, 0, Random.Range(2.0f, 2.0f), 1);
+            AudioManager.instance.PlaySound(transform.position, 0, Random.Range(1.4f, 2.4f), 1);
 
             if (transform.localScale.x < 0)
             {
@@ -315,31 +345,41 @@ public class Player : MonoBehaviour
             isSideAttack1 = !isSideAttack1;  // sideattack1과 sideattack2를 번갈아가면서 발동하기 위해 변경
             yield return new WaitForSeconds(0.07f);
         }
-        
-        yield return new WaitForSeconds(0.5f);
-        AudioManager.instance.PlaySound(transform.position, 0, Random.Range(2.0f, 2.0f), 1);
+
+        yield return new WaitForSeconds(0.3f);
+        StartCoroutine(Dashcor());
+        // 대시 방향을 입력 방향으로 설정
+        Vector2 dashDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
+
+
+        // 대시 방향으로 힘을 가하기
+        rb.AddForce(dashDirection * DashSpeed, ForceMode2D.Impulse);
+
+        StartCoroutine(DashTrigger());
+        yield return new WaitForSeconds(0.05f);
+        AudioManager.instance.PlaySound(transform.position, 1, Random.Range(1.0f, 1.0f), 1);
         if (transform.localScale.x < 0)
         {
             Destroy(Instantiate(POWER, transform.position + new Vector3(-0.5f, 0f, 0), Quaternion.identity), 3f);
 
-            // sideattack1 또는 sideattack2 트리거 발동
+            
             anim.SetTrigger("SideAttack");
         }
         if (transform.localScale.x > 0)
         {
             Destroy(Instantiate(POWER, transform.position + new Vector3(0.5f, 0f, 0), Quaternion.Euler(new Vector3(0, 180, 0))), 3f);
 
-            // sideattack1 또는 sideattack2 트리거 발동
+           
             anim.SetTrigger("SideAttack");
         }
         Collider2D[] collider2D = Physics2D.OverlapBoxAll(Skill2pos.position, skill2boxSize, 0); ;
         foreach (Collider2D collider in collider2D)
         {
-            
+
             if (collider.tag == "Monster")
             {
                 StatManager.instance.baseAtt *= 5;
-                collider.GetComponent<Monster>().TakeDamage(HitDamage);
+                collider.GetComponent<Monster>().TakeDamage(StatManager.instance.baseAtt);
                 yield return new WaitForSeconds(0.1f);
                 StatManager.instance.baseAtt /= 5;
 
@@ -348,24 +388,26 @@ public class Player : MonoBehaviour
             if (collider.tag == "BossMonster")
             {
                 StatManager.instance.baseAtt *= 5;
-                collider.GetComponent<MiniBossOne>().TakeDamage(HitDamage);
+                collider.GetComponent<MiniBossOne>().TakeDamage(StatManager.instance.baseAtt);
                 yield return new WaitForSeconds(0.1f);
                 StatManager.instance.baseAtt /= 5;
 
             }
-           
+
 
 
         }
-       ;
+        ;
 
 
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+   
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "MonsterAttack")
+        if (collision.gameObject.tag == "MonsterAttack" && !NeverDie)
         {
             curHp--;
+            StartCoroutine(NeverDieCor());
         }
     }
 
@@ -379,5 +421,109 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         isdash = false;
     }
+    IEnumerator NeverDieCor()
+    {
+      
+        playerA.a = 0.5f; 
+        spriteRenderer.color = playerA;
+        NeverDie = true;
+        yield return new WaitForSeconds(1.5f);
+        NeverDie = false;
+
+        playerA.a = 1f; 
+        spriteRenderer.color = playerA;
+    }
+    
+   
+        
+    IEnumerator MoveToMonsters()
+    {
+        
+            NeverDie = true;
+            Dark.SetActive(true);
+            anim.SetTrigger("Ready");
+            yield return new WaitForSeconds(0.5f);
+
+            if (transform.localScale.x < 0)
+            {
+                Destroy(Instantiate(Eyeptc, transform.position + new Vector3(-0.5f, -0.2f, 0), Quaternion.identity), 3f);
+
+
+
+            }
+            if (transform.localScale.x > 0)
+            {
+                Destroy(Instantiate(Eyeptc, transform.position + new Vector3(0.5f, -0.2f, 0), Quaternion.identity), 3f);
+
+
+
+            }
+            yield return new WaitForSeconds(1f);
+            Dark.SetActive(false);
+            // "Monster" 태그를 가진 모든 오브젝트를 찾습니다.
+
+            GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+
+            // 각 몬스터에 대해 순차적으로 이동합니다.
+            foreach (GameObject monster in monsters)
+            {
+                // 몬스터의 위치로 이동합니다.
+                StartCoroutine(MoveToTarget(monster.transform.position));
+
+                // 기다립니다. (이동이 완료될 때까지 대기)
+                yield return new WaitForSeconds(0.1f); // 예시로 1초 대기 (조절 가능)
+                if (transform.localScale.x < 0)
+                {
+                    Destroy(Instantiate(POWER2, transform.position + new Vector3(-0.5f, 0f, 0), Quaternion.identity), 3f);
+
+
+                    anim.SetTrigger("SideAttack");
+                }
+                if (transform.localScale.x > 0)
+                {
+                    Destroy(Instantiate(POWER2, transform.position + new Vector3(0.5f, 0f, 0), Quaternion.Euler(new Vector3(0, 180, 0))), 3f);
+
+
+                    anim.SetTrigger("SideAttack");
+                }
+                Collider2D[] collider2D = Physics2D.OverlapBoxAll(Skill2pos.position, skill2boxSize, 0); ;
+                foreach (Collider2D collider in collider2D)
+                {
+
+                    if (collider.tag == "Monster")
+                    {
+                        StatManager.instance.baseAtt *= 5;
+                        collider.GetComponent<Monster>().TakeDamage(StatManager.instance.baseAtt);
+                        yield return new WaitForSeconds(0.07f);
+                        StatManager.instance.baseAtt /= 5;
+
+
+                    }
+                }
+            }
+            NeverDie = false;
+           
+        }
+       
+
+    IEnumerator MoveToTarget(Vector3 targetPosition)
+    {
+        // 목표 위치로 플레이어를 부드럽게 이동시킵니다.
+        float elapsedTime = 0f;
+        Vector3 startingPos = transform.position;
+
+        while (elapsedTime < 1f)
+        {
+            transform.position = Vector3.Lerp(startingPos, targetPosition, elapsedTime);
+            elapsedTime += Time.deltaTime * moveSpeed; // moveSpeed에 따라 이동 속도 조절 가능
+            yield return null;
+        }
+
+        // 정확한 목표 위치로 이동합니다.
+        transform.position = targetPosition;
+    }
+
+    // 나머지 코드는 이전과 동일하게 유지됩니다.
+
 }
 
