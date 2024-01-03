@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class Monster : MonoBehaviour
 {
@@ -16,9 +18,12 @@ public class Monster : MonoBehaviour
     int MaxHP = 10;
     [SerializeField]
     int CurHP = 10 ;
-
+    [SerializeField]
+    GameObject HitPtc;
     Rigidbody2D rigid;
     SpriteRenderer spriter;
+    [SerializeField]
+    Slider Hpbar;
 
     float timeSinceLastAttack = 0f;
 
@@ -30,6 +35,7 @@ public class Monster : MonoBehaviour
 
     void FixedUpdate()
     {
+        Hpbar.value = (float)CurHP / (float)MaxHP;
         Die();
         if (!isLive)
             return;
@@ -74,7 +80,8 @@ public class Monster : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
-        CurHP = CurHP - damage;
+        Destroy(Instantiate(HitPtc,transform.position, Quaternion.identity),3f);
+       CurHP = CurHP - damage;
         CameraShake.instance.Shake();
        
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerShadowAnimation : MonoBehaviour
 {
     Animator anim;
+    private bool isSideAttack1 = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,6 +56,13 @@ public class PlayerShadowAnimation : MonoBehaviour
         {
             anim.SetBool("BackRun", false);
         }
+        if (Input.GetKey(KeyCode.X))
+        {
+            anim.SetTrigger(isSideAttack1 ? "SideAttack" : "SideAttack2");
+            isSideAttack1 = !isSideAttack1;
+        }
+      
+
 
 
     }
