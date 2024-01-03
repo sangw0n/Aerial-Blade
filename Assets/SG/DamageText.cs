@@ -11,7 +11,7 @@ public class DamageText : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        textObject.text = GameManager.instance.player.HitDamage.ToString();
+        textObject.text = StatManager.instance.baseAtt.ToString();
         StartCoroutine(MoveAndFade());
     }
 

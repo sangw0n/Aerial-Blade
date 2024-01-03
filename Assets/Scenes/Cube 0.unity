@@ -2277,9 +2277,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 537196f23f5ce19499d6a573ed75730b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 10
-  CurHp: 1
-  movespeed: 5
+  Dashpt: {fileID: 145256, guid: 7b117ab47ae99e74fbb811d488c1eb17, type: 3}
+  inputVec: {x: 0, y: 0}
+  maxHp: 0
+  curHp: 0
+  health: 0
+  moveSpeed: 0
   Hpbar: {fileID: 324152234}
   Skill2curTime: 0
   DashcurTime: 1
@@ -2291,7 +2294,7 @@ MonoBehaviour:
   pos: {fileID: 1435262241}
   Skillpos: {fileID: 690523147}
   Skill2pos: {fileID: 432762886}
-  DashSpeed: 2
+  DashSpeed: 40
   boxSize: {x: 3.28, y: 4.44}
   skillboxSize: {x: 6.6, y: 6.4}
   skill2boxSize: {x: 9.77, y: 9.49}
@@ -3792,6 +3795,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiniBoss (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2485409458577846673, guid: 9abb9c41a8f4ef94bbf508f872f4477d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2485409458577846677, guid: 9abb9c41a8f4ef94bbf508f872f4477d, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -3838,23 +3845,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3070137975913628478, guid: 9abb9c41a8f4ef94bbf508f872f4477d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3451522534774498375, guid: 9abb9c41a8f4ef94bbf508f872f4477d, type: 3}
-      propertyPath: m_Value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6774814073894913975, guid: 9abb9c41a8f4ef94bbf508f872f4477d, type: 3}
-      propertyPath: Damagetext
-      value: 
-      objectReference: {fileID: 1470639079662069097, guid: ab750860f0873b44d8160485eb6fda06, type: 3}
-    - target: {fileID: 8289496775390752244, guid: 9abb9c41a8f4ef94bbf508f872f4477d, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8289496775390752244, guid: 9abb9c41a8f4ef94bbf508f872f4477d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9abb9c41a8f4ef94bbf508f872f4477d, type: 3}

@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField]
+    GameObject Dashpt;
+    bool isdash = false;
     public Vector2 inputVec;
 
     public float maxHp;
@@ -119,6 +122,9 @@ public class Player : MonoBehaviour
 
     void Move()
     {
+        if (isdash)
+            return;
+        
         inputVec.x = Input.GetAxisRaw("Horizontal");
         inputVec.y = Input.GetAxisRaw("Vertical");
 
@@ -243,10 +249,14 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.C))
             {
+                Instantiate(Dashpt, transform.position, Quaternion.identity);
+                StartCoroutine(Dashcor());
+                // 대시 방향을 입력 방향으로 설정
                 Vector2 dashDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
 
-               
-                transform.Translate(dashDirection * DashSpeed);
+
+                // 대시 방향으로 힘을 가하기
+                rb.AddForce(dashDirection * DashSpeed, ForceMode2D.Impulse);
 
                 StartCoroutine(DashTrigger());
                 DashcurTime = DashcoolTime;
@@ -259,10 +269,11 @@ public class Player : MonoBehaviour
     }
 
 
+
     IEnumerator DashTrigger()
     {
         GetComponent<Collider2D>().isTrigger = true;
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(1f);
         GetComponent<Collider2D>().isTrigger = false;
     }
    IEnumerator SKill2Cor()
@@ -327,19 +338,19 @@ public class Player : MonoBehaviour
             
             if (collider.tag == "Monster")
             {
-                HitDamage *= 5;
+                StatManager.instance.baseAtt *= 5;
                 collider.GetComponent<Monster>().TakeDamage(HitDamage);
                 yield return new WaitForSeconds(0.1f);
-                HitDamage /= 5;
+                StatManager.instance.baseAtt /= 5;
 
 
             }
             if (collider.tag == "BossMonster")
             {
-                HitDamage *= 5;
+                StatManager.instance.baseAtt *= 5;
                 collider.GetComponent<MiniBossOne>().TakeDamage(HitDamage);
                 yield return new WaitForSeconds(0.1f);
-                HitDamage /= 5;
+                StatManager.instance.baseAtt /= 5;
 
             }
            
@@ -361,6 +372,12 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         StatManager.instance.Init();
+    }
+    IEnumerator Dashcor()
+    {
+        isdash = true;
+        yield return new WaitForSeconds(0.1f);
+        isdash = false;
     }
 }
 

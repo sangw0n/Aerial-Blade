@@ -1085,7 +1085,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  monster: {fileID: 0}
+  monster: {fileID: 91716871528983585, guid: b6e2e046cc8b3bd4d9b0bb2fed9b83f3, type: 3}
 --- !u!1 &290471506
 GameObject:
   m_ObjectHideFlags: 0
@@ -2837,7 +2837,7 @@ MonoBehaviour:
   maxHealth: 10
   baseAtt: 1
   baseCoolTime: 0.28
-  speed: 500
+  speed: 5
   player: {fileID: 0}
 --- !u!4 &1451397219
 Transform:

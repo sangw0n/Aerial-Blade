@@ -28,6 +28,8 @@ public class Monster : MonoBehaviour
     [SerializeField]
     GameObject Damagetext;
     [SerializeField] float knockbackForce = 5f;
+    [SerializeField]
+    bool Attacktrue = true;
 
     float timeSinceLastAttack = 0f;
 
@@ -65,7 +67,7 @@ public class Monster : MonoBehaviour
             // 플레이어와의 멈춤 거리 안이면 멈추는 거
             rigid.velocity = Vector2.zero;
 
-            if (Time.time - timeSinceLastAttack >= attackCooldown)
+            if (Time.time - timeSinceLastAttack >= attackCooldown && Attacktrue)
             {
                 Destroy(Instantiate(bulletPrefab, transform.position, Quaternion.identity), 3f);
                 timeSinceLastAttack = Time.time;
@@ -85,6 +87,7 @@ public class Monster : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
+        StartCoroutine(Attackbool());
         Destroy(Instantiate(HitPtc, transform.position, Quaternion.identity), 3f);
         Destroy(Instantiate(Damagetext, transform.position + new Vector3(0, 1.7f, 0), Quaternion.identity), 3f);
         CurHP -= damage;
@@ -109,5 +112,10 @@ public class Monster : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
+    IEnumerator Attackbool()
+    {
+        Attacktrue = false;
+        yield return new WaitForSeconds(5f);
+        Attacktrue = true;
+    }
 }

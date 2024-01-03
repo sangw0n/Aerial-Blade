@@ -413,7 +413,7 @@ MonoBehaviour:
   HitPtc: {fileID: 1753279311565200, guid: a5986da717b87c046b2b6f8a0c583b45, type: 3}
   Hpbar: {fileID: 4364372371521594249}
   Hpbar2: {fileID: 3451522534774498375}
-  Damagetext: {fileID: 1470639079662069097, guid: fb77199ffa40d9144a45ba90e8ebadbf, type: 3}
+  Damagetext: {fileID: 1470639079662069097, guid: ab750860f0873b44d8160485eb6fda06, type: 3}
 --- !u!1 &3303236671737426837
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,7 +500,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.501
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
