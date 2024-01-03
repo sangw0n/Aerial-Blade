@@ -4,18 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public enum Ui { AbilityPanel, DungeonPanel, GoldPanel}
+public enum Ui { AttAbilityPanel, AttSpeedtAbilityPanel, HealthtAbilityPanel, DungeonPanel, GoldPanel}
 
 public class UI : MonoBehaviour
 {
     public Ui ui;
     private TMP_Text text;
-    public Button buyButton;
 
     private void Awake()
     {
         text = GetComponentInChildren<TMP_Text>();
-        if(ui == Ui.AbilityPanel) buyButton = GetComponentInChildren<Button>();
     }
 
     private void LateUpdate()

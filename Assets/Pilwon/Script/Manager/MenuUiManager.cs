@@ -8,7 +8,7 @@ public class MenuUiManager : MonoBehaviour
 {
     public static MenuUiManager instance;
 
-    [SerializeField] private UI[] MenuUi;
+    public UI[] MenuUi;
     [SerializeField] private Button button;
 
     private void Awake()
@@ -17,27 +17,17 @@ public class MenuUiManager : MonoBehaviour
         MenuUi = GetComponentsInChildren<UI>(true);
     }
 
-    public void Show(Vector3 pos, Ui ui)
+    public void Show(Vector3 pos, int uiNum)
     {
         button.gameObject.SetActive(false);
 
-        RectTransform rect = MenuUi[(int)ui].GetComponent<RectTransform>();
+        RectTransform rect = MenuUi[uiNum].GetComponent<RectTransform>();
         rect.DOLocalMove(pos, 0.75f, false);
     }
 
-    public void Hide(Vector3 pos, Ui ui)
+    public void Hide(Vector3 pos, int uiNum)
     {
-        RectTransform rect = MenuUi[(int)ui].GetComponent<RectTransform>();
+        RectTransform rect = MenuUi[uiNum].GetComponent<RectTransform>();
         rect.DOLocalMove(pos, 0.75f, false);
-    }
-
-    public IEnumerator NoticePanel(Ui ui, float time)
-    {
-        RectTransform rect = MenuUi[(int)ui].GetComponent<RectTransform>();
-        Vector3 orginPos = rect.transform.localPosition;
-
-        Show(new Vector3(0, 447, 0), ui);
-        yield return new WaitForSeconds(time);
-        Hide(orginPos, ui);
     }
 }

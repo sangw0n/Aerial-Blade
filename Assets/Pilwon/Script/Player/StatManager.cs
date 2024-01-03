@@ -12,6 +12,8 @@ public class StatManager : MonoBehaviour
     public float maxHealth;
     public float baseAtt;
     public float baseCoolTime;
+    public float baseHealth;
+
 
     public float speed;
 
@@ -27,6 +29,7 @@ public class StatManager : MonoBehaviour
         // Player Var Init
         baseAtt = att;
         baseCoolTime = coolTime;
+        baseHealth = maxHealth;
     }
 
     public void Init()
@@ -42,16 +45,18 @@ public class StatManager : MonoBehaviour
 
     public void AttUpgrade(float rate)
     {
-        att = baseAtt + (att * rate);
+        att = baseAtt + (baseAtt * rate);
+        att = Mathf.Round(att);
     }
 
     public void AttSpeedUpgrade(float rate)
     {
         coolTime = baseCoolTime - rate;
+        coolTime = Mathf.Floor(coolTime  * 100f) / 100f;
     }
 
-    public void healthUpgrade(float rate)
+    public void HealthUpgrade(float rate)
     {
-        maxHealth = maxHealth + (maxHealth * rate);
+        maxHealth = baseHealth + (baseHealth * rate);
     }
 }

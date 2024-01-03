@@ -64,18 +64,17 @@ public class MouseClick : MonoBehaviour
                     //if (isZooming) return;
                     Dungeon dungeon = InGameManager.instance.dungeon.GetComponent<Dungeon>();
                     dungeon.Init(cube.bossData, cube.id);
-                    MenuUiManager.instance.Show(new Vector3(715, 0, 0), Ui.DungeonPanel);
+                    MenuUiManager.instance.Show(new Vector3(715, 0, 0), (int)Ui.DungeonPanel);
 
                     if(cube.cubeLock == CubeLock.Unlock)
                     {
-                        switch (cube.ability)
+                        switch (cube.id)
                         {
-                            case Ability.DamageUP:
-                            case Ability.AttSpeedUP:
-                            case Ability.HealthUp:
-                                BuffManager.instance.Init(cube.id);
-                                MenuUiManager.instance.Show(new Vector3(-715, 0, 0), Ui.AbilityPanel);
-                                MenuUiManager.instance.Show(new Vector3(0, 435, 0), Ui.GoldPanel);
+                            case 0:
+                            case 1:
+                            case 2:
+                                MenuUiManager.instance.Show(new Vector3(0, 435, 0), (int)Ui.GoldPanel);
+                                MenuUiManager.instance.Show(new Vector3(-715, 0, 0), cube.id);
                                 break;
 
                             default:
@@ -91,11 +90,16 @@ public class MouseClick : MonoBehaviour
                     tapCount = 0;
 
                     //if (isZoomOuting) return;
-                    MenuUiManager.instance.Hide(new Vector3(1250, 0, 0), Ui.DungeonPanel);
-                    MenuUiManager.instance.Hide(new Vector3(-1250, 0, 0), Ui.AbilityPanel);
-                    MenuUiManager.instance.Hide(new Vector3(0, 714, 0), Ui.GoldPanel);
-
-
+                    MenuUiManager.instance.Hide(new Vector3(1250, 0, 0), (int)Ui.DungeonPanel);
+                    MenuUiManager.instance.Hide(new Vector3(0, 714, 0), (int)Ui.GoldPanel);
+                    switch (cube.id)
+                    {
+                        case 0:
+                        case 1:
+                        case 2:
+                            MenuUiManager.instance.Hide(new Vector3(-1250, 0, 0), cube.id);
+                            break;
+                    }
 
                     isZoomOuting = true;
                     isZoom = false;
