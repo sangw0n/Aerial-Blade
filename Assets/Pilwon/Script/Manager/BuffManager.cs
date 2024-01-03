@@ -8,84 +8,81 @@ using TMPro;
 public class Buff
 {
     public string buffName;
-    public Sprite Icon;
     public string docs;
     public Ability ability;
 
-    [Space(5)]
-    public float[] buffNum;
-    public int[] upgradeMoney;
-    public int upgradeCount;
+    public float[] rate;
+    public int[] price;
+    public int level = 1;
 }
-
-public enum TextState { Title, Docs, ButtonText }
 
 public class BuffManager : MonoBehaviour
 {
     public static BuffManager instance { get; private set; }
     public Buff[] buff;
 
-    [Header("[ Buff Panel Header ]")]
-    [SerializeField] private TMP_Text[] text;
-    [SerializeField] private Image icon;
-    [SerializeField] private Button button;
-
     private void Awake()
     {
         instance = this;
     }
 
-    private void Start()
+    public void BuffBuyClick(int index)
     {
-        Init(0);
-    }
-
-    public void Init(int index)
-    {
-        var buff = this.buff[index];
-        text[0].text = string.Format("{0} 강화", buff.buffName);
-        text[1].text = string.Format("{0} + {1}%", buff.buffName, buff.buffNum[buff.upgradeCount] * 100);
-        text[2].text = string.Format("- {0} Gold", buff.upgradeMoney[buff.upgradeCount]);
-
-        icon.sprite = buff.Icon;
-    }
-
-    private void UpgradeButton(Ability ability)
-    {
-        GameManager gameMgr = GameManager.instance;
-        Buff buff = this.buff[(int)ability];
-        UpgeadeMaxCheck(ability);
-
-        switch (ability)
+        if (GameManager.instance.gold >= buff[index].price[buff[index].level])
         {
-            case Ability.DamageUP:
-            case Ability.AttSpeedUP:
-            case Ability.HealthUp:
-                if (gameMgr.gold >= buff.upgradeMoney[buff.upgradeCount])
-                {
-                    gameMgr.gold -= buff.upgradeMoney[buff.upgradeCount];
-                    StatManager.instance.AttUpgrade(buff.buffNum[buff.upgradeCount]);
-                    buff.upgradeCount++;
-                }
-                else
-                {
-                    // 띵소리 재생
-                    Debug.Log("돈 없음 ㅋㅋ");
-                }
+            buff[index].level++;
+            PlayerPrefs.SetInt("Ability" + index, buff[index].level);
+
+            AbilityCard abilityCard = MenuUiManager.instance.MenuUi[index].gameObject.GetComponent<AbilityCard>();
+            if (buff[index].level > buff[index].rate.Length - 1)
+            {
+                buff[index].level = Mathf.Min(buff[index].level, buff[index].rate.Length - 1);
+                abilityCard.ButtonCheck(false);
+            }
+
+            GameManager.instance.gold -= buff[index].price[buff[index].level];
+            Buff(index);
+            abilityCard.Init();
+        }
+    }
+
+    public void Buff(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                StatManager.instance.AttUpgrade(buff[index].rate[buff[index].level]);
+                break;
+            case 1:
+                StatManager.instance.AttSpeedUpgrade(buff[index].rate[buff[index].level]);
+                break;
+            case 2:
+                StatManager.instance.HealthUpgrade(buff[index].rate[buff[index].level]);
+                break;
+            default:
                 break;
         }
     }
 
-    private void UpgeadeMaxCheck(Ability ability)
+    private void OnEnable()
     {
-        if(buff[(int)ability].upgradeCount == buff[(int)ability].buffNum.Length - 1)
+        for (int index = 0; index < buff.Length; index++)
         {
-            button.interactable = false;
-            return;
+            buff[index].level = PlayerPrefs.GetInt("Ability" + index);
+            AbilityCard abilityCard = MenuUiManager.instance.MenuUi[index].gameObject.GetComponent<AbilityCard>();
+
+            if (buff[index].level > buff[index].rate.Length - 1)
+            {
+                buff[index].level = Mathf.Min(buff[index].level, buff[index].rate.Length - 1);
+                abilityCard.ButtonCheck(false);
+            }
+            Buff(index);
+            abilityCard.Init();
         }
-        else
-        {
-            button.interactable = true;
-        }
+
+
+        // 만렙이면 버튼 비활성화
+
+        // UI 초기화
     }
 }
