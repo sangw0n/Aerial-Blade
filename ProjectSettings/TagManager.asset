@@ -4,18 +4,21 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Cube
+  - Wall
+  - Missile
+  - Monster
+  - BossMonster
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Cube
+  - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Wall
+  - Bullet
+  - Monster
+  - BossMonster
   - 
   - 
   - 
