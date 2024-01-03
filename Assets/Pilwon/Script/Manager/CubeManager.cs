@@ -19,13 +19,12 @@ public class CubeManager : MonoBehaviour
 
     private void Start()
     {
-        if (!PlayerPrefs.HasKey("Clear" + 0)) CubeSave(0, BossClear.Clear);
-
         for (int index = 0; index < cube.Length; index++) Init(index); 
     }
 
     private void Update()
     {
+        // Test Code
         if (Input.GetKeyDown(KeyCode.Alpha1)) CubeSave(0, BossClear.Clear);
         if (Input.GetKeyDown(KeyCode.Alpha2)) CubeSave(1, BossClear.Clear);
         if (Input.GetKeyDown(KeyCode.Alpha3)) CubeSave(2, BossClear.Clear);
