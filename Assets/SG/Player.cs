@@ -120,11 +120,11 @@ public class Player : MonoBehaviour
                 {
                     if (collider.tag == "Monster")
                     {
-                        collider.GetComponent<Monster>().TakeDamage(HitDamage);
+                        collider.GetComponent<Monster>().TakeDamage(StatManager.instance.att);
                     }
                     if (collider.tag == "BossMonster")
                     {
-                        collider.GetComponent<MiniBossOne>().TakeDamage(HitDamage);
+                        collider.GetComponent<MiniBossOne>().TakeDamage(StatManager.instance.att);
                     }
                 }
 
@@ -261,11 +261,11 @@ public class Player : MonoBehaviour
             {
                 if (collider.tag == "Monster")
                 {
-                    collider.GetComponent<Monster>().TakeDamage(StatManager.instance.baseAtt);
+                    collider.GetComponent<Monster>().TakeDamage(StatManager.instance.att);
                 }
                 if (collider.tag == "BossMonster")
                 {
-                    collider.GetComponent<MiniBossOne>().TakeDamage(StatManager.instance.baseAtt);
+                    collider.GetComponent<MiniBossOne>().TakeDamage(StatManager.instance.att);
 
                 }
             }
@@ -332,11 +332,11 @@ public class Player : MonoBehaviour
             {
                 if (collider.tag == "Monster")
                 {
-                    collider.GetComponent<Monster>().TakeDamage(HitDamage);
+                    collider.GetComponent<Monster>().TakeDamage(StatManager.instance.att);
                 }
                 if (collider.tag == "BossMonster")
                 {
-                    collider.GetComponent<MiniBossOne>().TakeDamage(HitDamage);
+                    collider.GetComponent<MiniBossOne>().TakeDamage(StatManager.instance.att);
                 }
             }
 
@@ -378,19 +378,19 @@ public class Player : MonoBehaviour
 
             if (collider.tag == "Monster")
             {
-                StatManager.instance.baseAtt *= 5;
-                collider.GetComponent<Monster>().TakeDamage(StatManager.instance.baseAtt);
+                StatManager.instance.att *= 5;
+                collider.GetComponent<Monster>().TakeDamage(StatManager.instance.att);
                 yield return new WaitForSeconds(0.1f);
-                StatManager.instance.baseAtt /= 5;
+                StatManager.instance.att /= 5;
 
 
             }
             if (collider.tag == "BossMonster")
             {
-                StatManager.instance.baseAtt *= 5;
-                collider.GetComponent<MiniBossOne>().TakeDamage(StatManager.instance.baseAtt);
+                StatManager.instance.att *= 5;
+                collider.GetComponent<MiniBossOne>().TakeDamage(StatManager.instance.att);
                 yield return new WaitForSeconds(0.1f);
-                StatManager.instance.baseAtt /= 5;
+                StatManager.instance.att /= 5;
 
             }
 
@@ -492,10 +492,10 @@ public class Player : MonoBehaviour
 
                     if (collider.tag == "Monster")
                     {
-                        StatManager.instance.baseAtt *= 5;
-                        collider.GetComponent<Monster>().TakeDamage(StatManager.instance.baseAtt);
+                    StatManager.instance.att *= 5;
+                        collider.GetComponent<Monster>().TakeDamage(StatManager.instance.att);
                         yield return new WaitForSeconds(0.07f);
-                        StatManager.instance.baseAtt /= 5;
+                    StatManager.instance.att /= 5;
 
 
                     }

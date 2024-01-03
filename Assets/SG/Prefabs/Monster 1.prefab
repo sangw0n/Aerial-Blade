@@ -127,8 +127,8 @@ MonoBehaviour:
   attackCooldown: 3
   playerTag: Player
   bulletPrefab: {fileID: 8075235774488931034, guid: 38b86162ae0518643964f9cc2a7bf47e, type: 3}
-  MaxHP: 5
-  CurHP: 5
+  MaxHP: 100
+  CurHP: 100
   HitPtc: {fileID: 1753279311565200, guid: a5986da717b87c046b2b6f8a0c583b45, type: 3}
   Hpbar: {fileID: 2988988550458189605}
   Damagetext: {fileID: 1470639079662069097, guid: ab750860f0873b44d8160485eb6fda06, type: 3}
