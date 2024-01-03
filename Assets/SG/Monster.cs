@@ -31,7 +31,10 @@ public class Monster : MonoBehaviour
     [SerializeField] float knockbackForce = 5f;
     [SerializeField]
     bool Attacktrue = false;
-
+    private Color originalColor;
+    public Color newColor = Color.black;
+    [SerializeField]
+    SpriteRenderer spriteRenderer;
     float timeSinceLastAttack = 0f;
 
     void Awake()
@@ -39,6 +42,7 @@ public class Monster : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         spriter = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        originalColor = spriteRenderer.color;
     }
 
     void FixedUpdate()
@@ -89,15 +93,15 @@ public class Monster : MonoBehaviour
     }
     public void TakeDamage(float damage)
     {
-       
+        
         StartCoroutine(Attackbool());
-      
+       
         Destroy(Instantiate(HitPtc, transform.position, Quaternion.identity), 3f);
         Destroy(Instantiate(Damagetext, transform.position + new Vector3(0, 1.7f, 0), Quaternion.identity), 3f);
         CurHP -= damage;
         CameraShake.instance.Shake();
+        StartCoroutine(getDamege());
 
-        
         if (CurHP > 0)
         {
             GameObject player = GameObject.FindGameObjectWithTag(playerTag);
@@ -128,5 +132,11 @@ public class Monster : MonoBehaviour
         Attacktrue = false;
         yield return new WaitForSeconds(5f);
         Attacktrue = true;
+    }
+    private IEnumerator getDamege()
+    {
+        spriteRenderer.color = newColor;
+        yield return new WaitForSeconds(0.3f);
+        spriteRenderer.color = originalColor;
     }
 }

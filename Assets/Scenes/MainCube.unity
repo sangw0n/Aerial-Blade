@@ -3132,7 +3132,7 @@ MonoBehaviour:
   maxHealth: 10
   baseAtt: 1
   baseCoolTime: 0.28
-  speed: 5
+  speed: 8
   player: {fileID: 0}
 --- !u!4 &1451397219
 Transform:

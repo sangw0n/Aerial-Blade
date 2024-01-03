@@ -134,6 +134,8 @@ MonoBehaviour:
   Damagetext: {fileID: 1470639079662069097, guid: ab750860f0873b44d8160485eb6fda06, type: 3}
   knockbackForce: 0.5
   Attacktrue: 1
+  newColor: {r: 0.6415094, g: 0.022609046, b: 0, a: 1}
+  spriteRenderer: {fileID: 91716871528983587}
 --- !u!61 &91716871528984541
 BoxCollider2D:
   m_ObjectHideFlags: 0

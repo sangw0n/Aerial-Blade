@@ -9,7 +9,7 @@ public class MonsterSpawner : MonoBehaviour
     public Transform[] SpawnPos;
     public Transform BossSpawnPoint;
     public int MonsterSpawnCOunt;
-    float Wait = 3;
+    float Wait = 2f;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +34,7 @@ public class MonsterSpawner : MonoBehaviour
             MonsterSpawnCOunt++;
             int randomIndex = Random.Range(0, SpawnPos.Length);
             Instantiate(Monster, SpawnPos[randomIndex].position, Quaternion.identity);
-            if (MonsterSpawnCOunt == 5)
+            if (MonsterSpawnCOunt == 30)
             {
                 Instantiate(BossMonster, BossSpawnPoint.transform.position, Quaternion.identity);
                 Wait = 7f;

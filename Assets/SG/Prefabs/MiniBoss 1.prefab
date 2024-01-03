@@ -285,6 +285,8 @@ MonoBehaviour:
   Hpbar: {fileID: 6876391262903933544}
   Hpbar2: {fileID: 5483908333156081062}
   Damagetext: {fileID: 1470639079662069097, guid: ab750860f0873b44d8160485eb6fda06, type: 3}
+  newColor: {r: 0.7264151, g: 0, b: 0, a: 1}
+  spriteRenderer: {fileID: 0}
 --- !u!50 &4093589802370940438
 Rigidbody2D:
   serializedVersion: 4
@@ -322,10 +324,10 @@ BoxCollider2D:
   m_Offset: {x: -0.24750417, y: 0.03724453}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.41267517, y: 0.17997019}
+    oldSize: {x: 1.26, y: 1.14}
+    newSize: {x: 1.26, y: 1.14}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
