@@ -76,7 +76,7 @@ public class BuffManager : MonoBehaviour
                 buff[index].level = Mathf.Min(buff[index].level, buff[index].rate.Length - 1);
                 abilityCard.ButtonCheck(false);
             }
-            Buff(index);
+            if (buff[index].level != 0) Buff(index);
             abilityCard.Init();
         }
 
