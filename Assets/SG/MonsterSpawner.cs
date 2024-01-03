@@ -34,7 +34,7 @@ public class MonsterSpawner : MonoBehaviour
             MonsterSpawnCOunt++;
             int randomIndex = Random.Range(0, SpawnPos.Length);
             Instantiate(Monster, SpawnPos[randomIndex].position, Quaternion.identity);
-            if (MonsterSpawnCOunt == 30)
+            if (MonsterSpawnCOunt == 3)
             {
                 Instantiate(BossMonster, BossSpawnPoint.transform.position, Quaternion.identity);
                 Wait = 7f;

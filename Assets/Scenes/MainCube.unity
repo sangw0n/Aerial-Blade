@@ -801,7 +801,7 @@ Transform:
   m_GameObject: {fileID: 211347405}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.04, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1259,6 +1259,8 @@ MonoBehaviour:
   gold: 50000
   player: {fileID: 0}
   monster: {fileID: 91716871528983585, guid: b6e2e046cc8b3bd4d9b0bb2fed9b83f3, type: 3}
+  inStageCount: 0
+  isClear: 
 --- !u!1 &287204710
 GameObject:
   m_ObjectHideFlags: 0
@@ -1382,9 +1384,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35def949a6368fe449f5fa3f294c9c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ability: 3
+  ability: 4
   cubeLock: 0
-  id: 4
+  id: 3
   spawnPos: []
   bossData: {fileID: 11400000, guid: 6d7b15a00f1caa74d8c94ef446063b9f, type: 2}
 --- !u!212 &290471509
@@ -2887,7 +2889,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35def949a6368fe449f5fa3f294c9c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ability: 2
+  ability: 3
   cubeLock: 0
   id: 1
   spawnPos: []
@@ -5380,7 +5382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35def949a6368fe449f5fa3f294c9c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ability: 1
+  ability: 2
   cubeLock: 0
   id: 0
   spawnPos: []

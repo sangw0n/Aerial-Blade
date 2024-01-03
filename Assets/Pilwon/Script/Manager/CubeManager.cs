@@ -14,6 +14,7 @@ public class CubeManager : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         cube = GetComponentsInChildren<Cube>();
     }
 
@@ -48,10 +49,10 @@ public class CubeManager : MonoBehaviour
         }
     }
 
-        public void CubeSave(int index, BossClear clear)
+    public void CubeSave(int index, BossClear clear)
     {
         PlayerPrefs.SetInt("Clear" + index, (int)clear);
-
+        
         Init(index); 
     }
 }

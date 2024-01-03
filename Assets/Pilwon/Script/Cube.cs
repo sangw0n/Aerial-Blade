@@ -29,5 +29,8 @@ public class Cube : MonoBehaviour
     private void Start()
     {
         spawnPos = GetComponentsInChildren<Transform>();
+
+        if (GameManager.instance.isClear[id]) CubeManager.instance.CubeSave(id, BossClear.Clear);
+        else CubeManager.instance.CubeSave(id, BossClear.Fail);
     }
 }

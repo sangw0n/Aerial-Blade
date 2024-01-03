@@ -41,6 +41,7 @@ public class BuffManager : MonoBehaviour
             }
 
             GameManager.instance.gold -= buff[index].price[buff[index].level];
+            PlayerPrefs.SetInt("Gold", GameManager.instance.gold);
             Buff(index);
             abilityCard.Init();
         }

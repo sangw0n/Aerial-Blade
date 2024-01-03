@@ -24,6 +24,7 @@ public class Dungeon : MonoBehaviour
 
     public void SceneMove()
     {
+        GameManager.instance.inStageCount = index;
         SceneManager.LoadScene("Cube " + index);
     }
 }

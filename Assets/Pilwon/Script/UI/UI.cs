@@ -16,7 +16,7 @@ public class UI : MonoBehaviour
         text = GetComponentInChildren<TMP_Text>();
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         switch(ui)
         {
