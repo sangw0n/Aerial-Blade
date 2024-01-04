@@ -287,6 +287,10 @@ PrefabInstance:
       value: Canvas (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4841918089767749011, guid: 6f01eaab56f9550408b9d44a3e8beb89, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841918089767749011, guid: 6f01eaab56f9550408b9d44a3e8beb89, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
@@ -1726,8 +1730,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Monster: {fileID: 91716871528983590, guid: b6e2e046cc8b3bd4d9b0bb2fed9b83f3, type: 3}
+  Monster2: {fileID: 91716871528983590, guid: b6e2e046cc8b3bd4d9b0bb2fed9b83f3, type: 3}
+  Monster3: {fileID: 91716871528983590, guid: b6e2e046cc8b3bd4d9b0bb2fed9b83f3, type: 3}
   BossMonster: {fileID: 4093589802370940434, guid: cda8050383f083449939f2022871ef50, type: 3}
   BossMonsterTwo: {fileID: 2345485145531998558, guid: a6651ca31e87e6247b4dda5dbb97c812, type: 3}
+  BossMonsterThree: {fileID: 0}
   SpawnPos:
   - {fileID: 430407553}
   - {fileID: 1446334124}

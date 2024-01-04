@@ -1726,6 +1726,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Monster: {fileID: 91716871528983590, guid: b6e2e046cc8b3bd4d9b0bb2fed9b83f3, type: 3}
+  Monster2: {fileID: 91716871528983590, guid: b6e2e046cc8b3bd4d9b0bb2fed9b83f3, type: 3}
+  Monster3: {fileID: 91716871528983590, guid: b6e2e046cc8b3bd4d9b0bb2fed9b83f3, type: 3}
   BossMonster: {fileID: 4093589802370940434, guid: cda8050383f083449939f2022871ef50, type: 3}
   BossMonsterTwo: {fileID: 2345485145531998558, guid: a6651ca31e87e6247b4dda5dbb97c812, type: 3}
   BossMonsterThree: {fileID: 8951448008238540092, guid: 6028704a0c73ac642a26d5a245d432db, type: 3}

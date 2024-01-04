@@ -6,6 +6,9 @@ using static UnityEditor.PlayerSettings;
 public class MonsterSpawner : MonoBehaviour
 {
     public GameObject Monster;
+    public GameObject Monster2;
+    public GameObject Monster3;
+
     public GameObject BossMonster;
     public GameObject BossMonsterTwo;
     public GameObject BossMonsterThree;
@@ -14,7 +17,7 @@ public class MonsterSpawner : MonoBehaviour
     public Transform BossSpawnPoint;
     public int MonsterSpawnCOunt;
 
-    float Wait = 2f;
+    float Wait = 0.4f;
     [SerializeField]
     int BossNum;
 
@@ -47,7 +50,7 @@ public class MonsterSpawner : MonoBehaviour
             MonsterSpawnCOunt++;
             int randomIndex = Random.Range(0, SpawnPos.Length);
             Instantiate(Monster, SpawnPos[randomIndex].position, Quaternion.identity);
-            if (MonsterSpawnCOunt == 3)
+            if (MonsterSpawnCOunt == 50)
             {
                 Instantiate(BossMonster, BossSpawnPoint.transform.position, Quaternion.identity);
                 Wait = 10000f;
@@ -64,7 +67,7 @@ public class MonsterSpawner : MonoBehaviour
         {
             MonsterSpawnCOunt++;
             int randomIndex = Random.Range(0, SpawnPos.Length);
-            Instantiate(Monster, SpawnPos[randomIndex].position, Quaternion.identity);
+            Instantiate(Monster2, SpawnPos[randomIndex].position, Quaternion.identity);
             if (MonsterSpawnCOunt == 3)
             {
                 Instantiate(BossMonsterTwo, BossSpawnPoint.transform.position, Quaternion.identity);
@@ -82,7 +85,7 @@ public class MonsterSpawner : MonoBehaviour
         {
             MonsterSpawnCOunt++;
             int randomIndex = Random.Range(0, SpawnPos.Length);
-            Instantiate(Monster, SpawnPos[randomIndex].position, Quaternion.identity);
+            Instantiate(Monster3, SpawnPos[randomIndex].position, Quaternion.identity);
             if (MonsterSpawnCOunt == 3)
             {
                 Instantiate(BossMonsterThree, BossSpawnPoint.transform.position, Quaternion.identity);
