@@ -68,6 +68,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     SpriteRenderer spriteRenderer;
     [SerializeField] Color playerA;
+    [SerializeField]
     bool NeverDie = false;
 
     private bool isSlashPtc1Active = true;
@@ -88,8 +89,10 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
+                NeverDie = true;
                 StartCoroutine(LerpCameraSize(targetSize));
                 StartCoroutine(MoveToMonsters());
+                NeverDie = false;
                 Skill3curTime = Skill3coolTime;
                 SkillUiManager.instance.skillCollTime_3.fillAmount = 1;
             }
@@ -138,6 +141,10 @@ public class Player : MonoBehaviour
                         if (collider.tag == "BossMonster")
                         {
                             collider.GetComponent<MiniBossOne>().TakeDamage(StatManager.instance.att);
+                        }
+                        if (collider.tag == "LastBoss")
+                        {
+                            collider.GetComponent<LastBoss>().TakeDamage(StatManager.instance.att);
                         }
                     }
                 }
@@ -290,6 +297,10 @@ public class Player : MonoBehaviour
                     {
                         collider.GetComponent<MiniBossOne>().TakeDamage(StatManager.instance.att);
                     }
+                    if (collider.tag == "LastBoss")
+                    {
+                        collider.GetComponent<LastBoss>().TakeDamage(StatManager.instance.att);
+                    }
                 }
             }
             yield return new WaitForSeconds(0.08f);
@@ -364,6 +375,10 @@ public class Player : MonoBehaviour
                     if (collider.tag == "BossMonster")
                     {
                         collider.GetComponent<MiniBossOne>().TakeDamage(StatManager.instance.att);
+                    }
+                    if (collider.tag == "LastBoss")
+                    {
+                        collider.GetComponent<LastBoss>().TakeDamage(StatManager.instance.att);
                     }
                 }
             }
@@ -470,7 +485,7 @@ public class Player : MonoBehaviour
     IEnumerator MoveToMonsters()
     {
 
-        NeverDie = true;
+        
         Dark.SetActive(true);
         anim.SetTrigger("Ready");
         yield return new WaitForSeconds(0.5f);
@@ -540,7 +555,7 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        NeverDie = false;
+     
 
     }
 
