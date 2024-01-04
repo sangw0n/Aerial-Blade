@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     GameObject Dashpt;
     bool isdash = false;
     public Vector2 inputVec;
-   
+
 
     public float maxHp;
     public float curHp;
@@ -56,6 +56,8 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject POWER2;
     [SerializeField] GameObject Eyeptc;
     [SerializeField] GameObject Dark;
+    [SerializeField] GameObject Red;
+    
 
 
     [SerializeField]
@@ -79,11 +81,11 @@ public class Player : MonoBehaviour
         if (Skill3curTime <= 0)
         {
             if (Input.GetKeyDown(KeyCode.F))
-        {
-            StartCoroutine(MoveToMonsters());
-            Skill3curTime = Skill3coolTime;
+            {
+                StartCoroutine(MoveToMonsters());
+                Skill3curTime = Skill3coolTime;
             }
-            
+
         }
         else
         {
@@ -118,13 +120,16 @@ public class Player : MonoBehaviour
                 Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
                 foreach (Collider2D collider in collider2Ds)
                 {
-                    if (collider.tag == "Monster")
+                    if (collider != null)
                     {
-                        collider.GetComponent<Monster>().TakeDamage(StatManager.instance.att);
-                    }
-                    if (collider.tag == "BossMonster")
-                    {
-                        collider.GetComponent<MiniBossOne>().TakeDamage(StatManager.instance.att);
+                        if (collider.tag == "Monster")
+                        {
+                            collider.GetComponent<Monster>().TakeDamage(StatManager.instance.att);
+                        }
+                        if (collider.tag == "BossMonster")
+                        {
+                            collider.GetComponent<MiniBossOne>().TakeDamage(StatManager.instance.att);
+                        }
                     }
                 }
 
@@ -220,6 +225,7 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.D))
             {
+
                 AudioManager.instance.PlaySound(transform.position, 2, Random.Range(1.4f, 1.7f), 1);
                 anim.SetTrigger("SKill1");
                 StartCoroutine(SkillCor());
@@ -253,24 +259,28 @@ public class Player : MonoBehaviour
 
     IEnumerator SkillCor()
     {
+        NeverDie = true;
         for (int i = 0; i < 5; i++)
         {
             Destroy(Instantiate(SkillPtc, transform.position, Quaternion.identity), 3f);
             Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(Skillpos.position, skillboxSize, 0);
             foreach (Collider2D collider in collider2Ds)
             {
-                if (collider.tag == "Monster")
+                if (collider != null)
+                {NeverDie = true;
+                    if (collider.tag == "Monster")
                 {
                     collider.GetComponent<Monster>().TakeDamage(StatManager.instance.att);
                 }
-                if (collider.tag == "BossMonster")
-                {
-                    collider.GetComponent<MiniBossOne>().TakeDamage(StatManager.instance.att);
-
+                    if (collider.tag == "BossMonster")
+                    {
+                        collider.GetComponent<MiniBossOne>().TakeDamage(StatManager.instance.att);
+                    }
                 }
             }
             yield return new WaitForSeconds(0.08f);
         }
+        NeverDie = false;
     }
 
     void Dash()
@@ -308,6 +318,7 @@ public class Player : MonoBehaviour
     }
     IEnumerator SKill2Cor()
     {
+        NeverDie = true;
         for (int i = 0; i < 10; i++)
         {
             AudioManager.instance.PlaySound(transform.position, 0, Random.Range(1.4f, 2.4f), 1);
@@ -330,13 +341,16 @@ public class Player : MonoBehaviour
             Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
             foreach (Collider2D collider in collider2Ds)
             {
-                if (collider.tag == "Monster")
+                if (collider != null)
                 {
-                    collider.GetComponent<Monster>().TakeDamage(StatManager.instance.att);
-                }
-                if (collider.tag == "BossMonster")
-                {
-                    collider.GetComponent<MiniBossOne>().TakeDamage(StatManager.instance.att);
+                    if (collider.tag == "Monster")
+                    {
+                        collider.GetComponent<Monster>().TakeDamage(StatManager.instance.att);
+                    }
+                    if (collider.tag == "BossMonster")
+                    {
+                        collider.GetComponent<MiniBossOne>().TakeDamage(StatManager.instance.att);
+                    }
                 }
             }
 
@@ -362,21 +376,21 @@ public class Player : MonoBehaviour
         {
             Destroy(Instantiate(POWER, transform.position + new Vector3(-0.5f, 0f, 0), Quaternion.identity), 3f);
 
-            
+
             anim.SetTrigger("SideAttack");
         }
         if (transform.localScale.x > 0)
         {
             Destroy(Instantiate(POWER, transform.position + new Vector3(0.5f, 0f, 0), Quaternion.Euler(new Vector3(0, 180, 0))), 3f);
 
-           
+
             anim.SetTrigger("SideAttack");
         }
         Collider2D[] collider2D = Physics2D.OverlapBoxAll(Skill2pos.position, skill2boxSize, 0); ;
         foreach (Collider2D collider in collider2D)
         {
-
-            if (collider.tag == "Monster")
+            if (collider != null) { 
+                if (collider.tag == "Monster")
             {
                 StatManager.instance.att *= 5;
                 collider.GetComponent<Monster>().TakeDamage(StatManager.instance.att);
@@ -393,20 +407,22 @@ public class Player : MonoBehaviour
                 StatManager.instance.att /= 5;
 
             }
-
+            }
 
 
         }
         ;
-
+        NeverDie = false;
 
     }
-   
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "MonsterAttack" && !NeverDie)
         {
             curHp--;
+            StartCoroutine(RedCor());
+            CameraShake.instance.Shake();
             StartCoroutine(NeverDieCor());
         }
     }
@@ -423,88 +439,90 @@ public class Player : MonoBehaviour
     }
     IEnumerator NeverDieCor()
     {
-      
-        playerA.a = 0.5f; 
+
+        playerA.a = 0.5f;
         spriteRenderer.color = playerA;
         NeverDie = true;
         yield return new WaitForSeconds(1.5f);
         NeverDie = false;
 
-        playerA.a = 1f; 
+        playerA.a = 1f;
         spriteRenderer.color = playerA;
     }
-    
-   
-        
+
+
+
     IEnumerator MoveToMonsters()
     {
-        
-            NeverDie = true;
-            Dark.SetActive(true);
-            anim.SetTrigger("Ready");
-            yield return new WaitForSeconds(0.5f);
 
+        NeverDie = true;
+        Dark.SetActive(true);
+        anim.SetTrigger("Ready");
+        yield return new WaitForSeconds(0.5f);
+
+        if (transform.localScale.x < 0)
+        {
+            Destroy(Instantiate(Eyeptc, transform.position + new Vector3(-0.5f, -0.2f, 0), Quaternion.identity), 3f);
+
+
+
+        }
+        if (transform.localScale.x > 0)
+        {
+            Destroy(Instantiate(Eyeptc, transform.position + new Vector3(0.5f, -0.2f, 0), Quaternion.identity), 3f);
+
+
+
+        }
+        yield return new WaitForSeconds(1f);
+        Dark.SetActive(false);
+        // "Monster" 태그를 가진 모든 오브젝트를 찾습니다.
+
+        GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+
+        // 각 몬스터에 대해 순차적으로 이동합니다.
+        foreach (GameObject monster in monsters)
+        {
+            // 몬스터의 위치로 이동합니다.
+            StartCoroutine(MoveToTarget(monster.transform.position));
+            AudioManager.instance.PlaySound(transform.position, 0, Random.Range(2f, 2.5f), 1);
+            // 기다립니다. (이동이 완료될 때까지 대기)
+            yield return new WaitForSeconds(0.1f); // 예시로 1초 대기 (조절 가능)
             if (transform.localScale.x < 0)
             {
-                Destroy(Instantiate(Eyeptc, transform.position + new Vector3(-0.5f, -0.2f, 0), Quaternion.identity), 3f);
+                Destroy(Instantiate(POWER2, transform.position + new Vector3(-0.5f, 0f, 0), Quaternion.identity), 3f);
 
 
-
+                anim.SetTrigger("SideAttack");
             }
             if (transform.localScale.x > 0)
             {
-                Destroy(Instantiate(Eyeptc, transform.position + new Vector3(0.5f, -0.2f, 0), Quaternion.identity), 3f);
+                Destroy(Instantiate(POWER2, transform.position + new Vector3(0.5f, 0f, 0), Quaternion.Euler(new Vector3(0, 180, 0))), 3f);
 
 
-
+                anim.SetTrigger("SideAttack");
             }
-            yield return new WaitForSeconds(1f);
-            Dark.SetActive(false);
-            // "Monster" 태그를 가진 모든 오브젝트를 찾습니다.
-
-            GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
-
-            // 각 몬스터에 대해 순차적으로 이동합니다.
-            foreach (GameObject monster in monsters)
+            Collider2D[] collider2D = Physics2D.OverlapBoxAll(Skill2pos.position, skill2boxSize, 0); ;
+            foreach (Collider2D collider in collider2D)
             {
-                // 몬스터의 위치로 이동합니다.
-                StartCoroutine(MoveToTarget(monster.transform.position));
-            AudioManager.instance.PlaySound(transform.position,0, Random.Range(2f, 2.5f), 1);
-            // 기다립니다. (이동이 완료될 때까지 대기)
-            yield return new WaitForSeconds(0.1f); // 예시로 1초 대기 (조절 가능)
-                if (transform.localScale.x < 0)
-                {
-                    Destroy(Instantiate(POWER2, transform.position + new Vector3(-0.5f, 0f, 0), Quaternion.identity), 3f);
-
-
-                    anim.SetTrigger("SideAttack");
-                }
-                if (transform.localScale.x > 0)
-                {
-                    Destroy(Instantiate(POWER2, transform.position + new Vector3(0.5f, 0f, 0), Quaternion.Euler(new Vector3(0, 180, 0))), 3f);
-
-
-                    anim.SetTrigger("SideAttack");
-                }
-                Collider2D[] collider2D = Physics2D.OverlapBoxAll(Skill2pos.position, skill2boxSize, 0); ;
-                foreach (Collider2D collider in collider2D)
-                {
-
+                if (collider != null) { 
                     if (collider.tag == "Monster")
-                    {
+                {
                     StatManager.instance.att *= 5;
-                        collider.GetComponent<Monster>().TakeDamage(StatManager.instance.att);
-                        yield return new WaitForSeconds(0.07f);
+                    collider.GetComponent<Monster>().TakeDamage(StatManager.instance.att);
+                        StartCoroutine(SkillCor());
+                    yield return new WaitForSeconds(0.07f);
                     StatManager.instance.att /= 5;
 
 
                     }
                 }
             }
-            NeverDie = false;
-           
         }
-       
+        NeverDie = false;
+
+    }
+
 
     IEnumerator MoveToTarget(Vector3 targetPosition)
     {
@@ -523,7 +541,21 @@ public class Player : MonoBehaviour
         transform.position = targetPosition;
     }
 
-    // 나머지 코드는 이전과 동일하게 유지됩니다.
-
+    public void TakeDamage(float damage)
+    {
+        if (!NeverDie)
+        {
+            curHp -= damage;
+            StartCoroutine(RedCor());
+            CameraShake.instance.Shake();
+            StartCoroutine(NeverDieCor());
+        }
+       
+    }
+    IEnumerator RedCor()
+    {
+        Red.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        Red.gameObject.SetActive(false);
+    }
 }
-
