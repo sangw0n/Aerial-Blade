@@ -741,7 +741,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f89490394e4c6240a767b5217453cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transition: {fileID: 11400000, guid: b0126e1e0c6c2a04895d564bd230dfb9, type: 2}
   cube: []
   UnlcokSprite:
   - {fileID: 21300000, guid: 1c76f1c8d5fe1f94d9611d54e798e60f, type: 3}
@@ -2456,7 +2455,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MenuUi: []
-  button: {fileID: 347698259}
 --- !u!1 &839931998
 GameObject:
   m_ObjectHideFlags: 0
