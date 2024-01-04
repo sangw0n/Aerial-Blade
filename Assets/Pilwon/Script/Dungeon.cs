@@ -40,6 +40,6 @@ public class Dungeon : MonoBehaviour
     public void SceneMove()
     {   
         GameManager.instance.inStageCount = index;
-        TransitionManager.Instance().Transition("Cube " + index, transition, 0);
+        TransitionManager.Instance().Transition(GameManager.instance.inStageCount + 2, transition, 0);
     }
 }

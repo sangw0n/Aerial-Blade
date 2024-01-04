@@ -408,6 +408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eabb783e06740146bc4d1eb9cf806d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transition: {fileID: 11400000, guid: b0126e1e0c6c2a04895d564bd230dfb9, type: 2}
   BossNum: 0
   playerTag: Player
   bulletPrefab: {fileID: 0}
@@ -5956,6 +5957,7 @@ MonoBehaviour:
   gold: 0
   player: {fileID: 877388695}
   monster: {fileID: 91716871528983585, guid: b6e2e046cc8b3bd4d9b0bb2fed9b83f3, type: 3}
+  clearGold: 1000
   inStageCount: 0
   isClear: 
   isFirstClear: 

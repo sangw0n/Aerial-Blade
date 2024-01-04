@@ -15,6 +15,7 @@ public class Cube : MonoBehaviour
     [Header(" [ Var Header ] ")]
     public int id;
     public Transform[] spawnPos;
+    public GameObject deco;
 
     [Header(" [ Data Header ] ")]
     public BossData bossData;
@@ -42,7 +43,7 @@ public class Cube : MonoBehaviour
             if(!isFirstParicle)
             {
                 PlayerPrefs.SetInt("IsParticle" + id, 1);
-                Instantiate(CubeManager.instance.levelParticle[id], spawnPos[2].transform.position,Quaternion.identity);
+                Instantiate(CubeManager.instance.levelParticle[id], spawnPos[1].transform.position,Quaternion.identity);
                 StartCoroutine(WaitTime());
                 Debug.Log("Èå¾æ ÆÄÆ¼Å¬ ¹ßµ¿!!!!!");
             }

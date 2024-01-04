@@ -43,6 +43,7 @@ public class CubeManager : MonoBehaviour
         if (PlayerPrefs.GetInt("Clear" + index) >= 1)
         {
             sprite.sprite = UnlcokSprite[cube[index].id];
+            cube[index].deco.SetActive(true);
             cube[index].cubeLock = CubeLock.Unlock;
         }
         else

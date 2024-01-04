@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.PlayerSettings;
 
 
 public class MiniBossOne : MonoBehaviour
@@ -89,6 +88,7 @@ public class MiniBossOne : MonoBehaviour
         {
             GameManager.instance.GameClear();
             GameManager.instance.isStop = true;
+            GameManager.instance.gold += GameManager.instance.clearGold;
 
             if (GameManager.instance.isClear[GameManager.instance.inStageCount]) 
             {

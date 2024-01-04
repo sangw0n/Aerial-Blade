@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public int gold;
     public Player player;
     public Monster monster;
+    public int clearGold = 1000;
 
     [Header(" [ Game Var Header ]")]
     public int inStageCount;

@@ -1,10 +1,13 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using EasyTransition;
 
 public class LastBoss : MonoBehaviour
 {
     Animator anim;
+    public TransitionSettings transition;
+
     [SerializeField] int BossNum;
     [SerializeField] string playerTag = "Player";
     [SerializeField] GameObject bulletPrefab;
@@ -49,7 +52,7 @@ public class LastBoss : MonoBehaviour
     {
         while (true)
         {
-           
+
             yield return StartCoroutine(FirstPaton());
 
             if (AttackCount >= 5)
@@ -77,6 +80,8 @@ public class LastBoss : MonoBehaviour
             }
             GameManager.instance.isClear[GameManager.instance.inStageCount] = true;
             PlayerPrefs.SetInt("isClear" + GameManager.instance.inStageCount, 1);
+            TransitionManager.Instance().Transition("EndScene", transition, 0);
+            TransitionManager.Instance().Transition("EndScene", transition, 0);
 
             Destroy(gameObject);
         }
@@ -103,10 +108,10 @@ public class LastBoss : MonoBehaviour
             Destroy(Instantiate(HitPtc, transform.position, Quaternion.identity), 3f);
             Destroy(Instantiate(Damagetext, transform.position + new Vector3(0, 1.5f, -50), Quaternion.identity), 3f);
             CurHP -= damage;
-           
+
             CameraShake.instance.Shake();
         }
-        
+
     }
 
     IEnumerator DangerLaserCor()
@@ -199,6 +204,6 @@ public class LastBoss : MonoBehaviour
 
 
 
-    
+
 
 }
