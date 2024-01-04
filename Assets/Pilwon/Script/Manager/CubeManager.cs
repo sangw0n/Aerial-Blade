@@ -12,6 +12,8 @@ public class CubeManager : MonoBehaviour
     public Sprite[] UnlcokSprite;
     public Sprite[] LockSprite;
 
+    public GameObject[] levelParticle;
+
     private void Awake()
     {
         instance = this;

@@ -19,6 +19,8 @@ public class Cube : MonoBehaviour
     [Header(" [ Data Header ] ")]
     public BossData bossData;
 
+    public bool isFirstParicle = false;
+
     private SpriteRenderer sprite;
 
     private void Awake()
@@ -26,11 +28,35 @@ public class Cube : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
     }
 
+    private void OnEnable()
+    {
+        isFirstParicle = PlayerPrefs.GetInt("IsParticle" + id) != 1 ? false : true;
+    }
+
     private void Start()
     {
         spawnPos = GetComponentsInChildren<Transform>();
 
-        if (GameManager.instance.isClear[id]) CubeManager.instance.CubeSave(id, BossClear.Clear);
+        if (GameManager.instance.isClear[id])
+        {
+            if(!isFirstParicle)
+            {
+                PlayerPrefs.SetInt("IsParticle" + id, 1);
+                Instantiate(CubeManager.instance.levelParticle[id], spawnPos[2].transform.position,Quaternion.identity);
+                StartCoroutine(WaitTime());
+                Debug.Log("Èå¾æ ÆÄÆ¼Å¬ ¹ßµ¿!!!!!");
+            }
+            else
+            {
+                CubeManager.instance.CubeSave(id, BossClear.Clear);
+            }
+        }
         else CubeManager.instance.CubeSave(id, BossClear.Fail);
+    }
+
+    private IEnumerator WaitTime()
+    {
+        yield return new WaitForSeconds(1.0f);
+        CubeManager.instance.CubeSave(id, BossClear.Clear);
     }
 }

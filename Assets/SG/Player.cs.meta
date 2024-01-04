@@ -3,7 +3,23 @@ guid: 537196f23f5ce19499d6a573ed75730b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Dashpt: {instanceID: 0}
+  - virtualCamera: {instanceID: 0}
+  - Hpbar: {instanceID: 0}
+  - pos: {instanceID: 0}
+  - Skillpos: {instanceID: 0}
+  - Skill2pos: {instanceID: 0}
+  - SlashPtc: {instanceID: 0}
+  - SlashPtc2: {instanceID: 0}
+  - SkillPtc: {instanceID: 0}
+  - POWER: {instanceID: 0}
+  - POWER2: {instanceID: 0}
+  - Eyeptc: {instanceID: 0}
+  - Dark: {instanceID: 0}
+  - Red: {instanceID: 0}
+  - FlashPtc: {fileID: 1773673519030548, guid: 6e3db7afa59301e48bc3999ec41f1410, type: 3}
+  - spriteRenderer: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

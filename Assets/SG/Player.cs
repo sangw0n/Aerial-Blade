@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -6,11 +7,14 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public float targetSize = 5f; // 목표 카메라 크기
+    public float lerpSpeed = 2f; // 보간 속도
+
     [SerializeField]
     GameObject Dashpt;
     bool isdash = false;
     public Vector2 inputVec;
-
+    public CinemachineVirtualCamera virtualCamera;
 
     public float maxHp;
     public float curHp;
@@ -57,7 +61,8 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject Eyeptc;
     [SerializeField] GameObject Dark;
     [SerializeField] GameObject Red;
-    
+    [SerializeField] GameObject FlashPtc;
+
 
 
     [SerializeField]
@@ -78,10 +83,12 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+       
         if (Skill3curTime <= 0)
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
+                StartCoroutine(LerpCameraSize(targetSize));
                 StartCoroutine(MoveToMonsters());
                 Skill3curTime = Skill3coolTime;
                 SkillUiManager.instance.skillCollTime_3.fillAmount = 1;
@@ -273,11 +280,12 @@ public class Player : MonoBehaviour
             foreach (Collider2D collider in collider2Ds)
             {
                 if (collider != null)
-                {NeverDie = true;
-                    if (collider.tag == "Monster")
                 {
-                    collider.GetComponent<Monster>().TakeDamage(StatManager.instance.att);
-                }
+                    NeverDie = true;
+                    if (collider.tag == "Monster")
+                    {
+                        collider.GetComponent<Monster>().TakeDamage(StatManager.instance.att);
+                    }
                     if (collider.tag == "BossMonster")
                     {
                         collider.GetComponent<MiniBossOne>().TakeDamage(StatManager.instance.att);
@@ -395,24 +403,25 @@ public class Player : MonoBehaviour
         Collider2D[] collider2D = Physics2D.OverlapBoxAll(Skill2pos.position, skill2boxSize, 0); ;
         foreach (Collider2D collider in collider2D)
         {
-            if (collider != null) { 
+            if (collider != null)
+            {
                 if (collider.tag == "Monster")
-            {
-                StatManager.instance.att *= 5;
-                collider.GetComponent<Monster>().TakeDamage(StatManager.instance.att);
-                yield return new WaitForSeconds(0.1f);
-                StatManager.instance.att /= 5;
+                {
+                    StatManager.instance.att *= 5;
+                    collider.GetComponent<Monster>().TakeDamage(StatManager.instance.att);
+                    yield return new WaitForSeconds(0.1f);
+                    StatManager.instance.att /= 5;
 
 
-            }
-            if (collider.tag == "BossMonster")
-            {
-                StatManager.instance.att *= 5;
-                collider.GetComponent<MiniBossOne>().TakeDamage(StatManager.instance.att);
-                yield return new WaitForSeconds(0.1f);
-                StatManager.instance.att /= 5;
+                }
+                if (collider.tag == "BossMonster")
+                {
+                    StatManager.instance.att *= 5;
+                    collider.GetComponent<MiniBossOne>().TakeDamage(StatManager.instance.att);
+                    yield return new WaitForSeconds(0.1f);
+                    StatManager.instance.att /= 5;
 
-            }
+                }
             }
 
 
@@ -427,7 +436,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "MonsterAttack" && !NeverDie)
         {
             curHp--;
-            StartCoroutine(RedCor());
+            //StartCoroutine(RedCor());
             CameraShake.instance.Shake();
             StartCoroutine(NeverDieCor());
         }
@@ -486,10 +495,13 @@ public class Player : MonoBehaviour
 
         GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
 
+      
+
         // 각 몬스터에 대해 순차적으로 이동합니다.
         foreach (GameObject monster in monsters)
         {
             // 몬스터의 위치로 이동합니다.
+            Destroy(Instantiate(FlashPtc, transform.position, Quaternion.identity), 3f);
             StartCoroutine(MoveToTarget(monster.transform.position));
             AudioManager.instance.PlaySound(transform.position, 0, Random.Range(2f, 2.5f), 1);
             // 기다립니다. (이동이 완료될 때까지 대기)
@@ -511,14 +523,17 @@ public class Player : MonoBehaviour
             Collider2D[] collider2D = Physics2D.OverlapBoxAll(Skill2pos.position, skill2boxSize, 0); ;
             foreach (Collider2D collider in collider2D)
             {
-                if (collider != null) { 
-                    if (collider.tag == "Monster")
+                if (collider != null)
                 {
-                    StatManager.instance.att *= 5;
-                    collider.GetComponent<Monster>().TakeDamage(StatManager.instance.att);
+                    if (collider.tag == "Monster")
+                    {
+                        StatManager.instance.att *= 5;
+                        collider.GetComponent<Monster>().TakeDamage(StatManager.instance.att);
                         StartCoroutine(SkillCor());
-                    yield return new WaitForSeconds(0.07f);
-                    StatManager.instance.att /= 5;
+                        AudioManager.instance.PlaySound(transform.position, 2, Random.Range(1.4f, 1.7f), 1);
+
+                        yield return new WaitForSeconds(0.07f);
+                        StatManager.instance.att /= 5;
 
 
                     }
@@ -552,11 +567,11 @@ public class Player : MonoBehaviour
         if (!NeverDie)
         {
             curHp -= damage;
-            StartCoroutine(RedCor());
+            //StartCoroutine(RedCor());
             CameraShake.instance.Shake();
             StartCoroutine(NeverDieCor());
         }
-       
+
     }
     IEnumerator RedCor()
     {
@@ -564,4 +579,37 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         Red.gameObject.SetActive(false);
     }
+    IEnumerator LerpCameraSize(float targetSize)
+    {
+        float elapsedTime = 0f;
+        float currentSize = virtualCamera.m_Lens.OrthographicSize;
+
+        // 크기를 부드럽게 작게 조절
+        while (elapsedTime < lerpSpeed)
+        {
+            float lerpedSize = Mathf.Lerp(currentSize, targetSize, elapsedTime / lerpSpeed);
+            virtualCamera.m_Lens.OrthographicSize = lerpedSize;
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // 1초 대기
+        yield return new WaitForSeconds(1f);
+
+        // 크기를 부드럽게 다시 키우기
+        elapsedTime = 0f;
+        while (elapsedTime < lerpSpeed)
+        {
+            float lerpedSize = Mathf.Lerp(targetSize, currentSize, elapsedTime / lerpSpeed);
+            virtualCamera.m_Lens.OrthographicSize = lerpedSize;
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // 정확한 목표 크기로 설정
+        virtualCamera.m_Lens.OrthographicSize = currentSize;
+    }
+
 }

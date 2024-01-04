@@ -1728,6 +1728,7 @@ MonoBehaviour:
   Monster: {fileID: 91716871528983590, guid: b6e2e046cc8b3bd4d9b0bb2fed9b83f3, type: 3}
   BossMonster: {fileID: 4093589802370940434, guid: cda8050383f083449939f2022871ef50, type: 3}
   BossMonsterTwo: {fileID: 2345485145531998558, guid: a6651ca31e87e6247b4dda5dbb97c812, type: 3}
+  BossMonsterThree: {fileID: 0}
   SpawnPos:
   - {fileID: 430407553}
   - {fileID: 1446334124}
@@ -2295,8 +2296,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 537196f23f5ce19499d6a573ed75730b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetSize: 9
+  lerpSpeed: 0.3
   Dashpt: {fileID: 145256, guid: 7b117ab47ae99e74fbb811d488c1eb17, type: 3}
   inputVec: {x: 0, y: 0}
+  virtualCamera: {fileID: 1531531872}
   maxHp: 0
   curHp: 0
   health: 0
@@ -2326,6 +2330,7 @@ MonoBehaviour:
   Eyeptc: {fileID: 1257899049973296, guid: f569d19cf52ef304b82b58d4c05d9080, type: 3}
   Dark: {fileID: 1761206985}
   Red: {fileID: 1911992019}
+  FlashPtc: {fileID: 1773673519030548, guid: 6e3db7afa59301e48bc3999ec41f1410, type: 3}
   spriteRenderer: {fileID: 877388693}
   playerA: {r: 1, g: 1, b: 1, a: 0.43137255}
 --- !u!61 &877388696
@@ -4193,6 +4198,7 @@ MonoBehaviour:
   monster: {fileID: 91716871528983585, guid: b6e2e046cc8b3bd4d9b0bb2fed9b83f3, type: 3}
   inStageCount: 0
   isClear: 
+  isFirstClear: 
 --- !u!4 &1647492445
 Transform:
   m_ObjectHideFlags: 0

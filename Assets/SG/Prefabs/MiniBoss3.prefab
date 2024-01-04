@@ -103,7 +103,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC774\uC7A5\uD601"
+  m_text: "\uC624\uD604\uC11C "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5153035d76f37e5428d09ab2f5a5d790, type: 2}
   m_sharedMaterial: {fileID: 7109789084608148650, guid: 5153035d76f37e5428d09ab2f5a5d790, type: 2}
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.345
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -320,7 +320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.412241, g: 0.01568625, b: 0.99215686, a: 1}
+  m_Color: {r: 0.01860939, g: 0.6037736, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -602,7 +602,7 @@ MonoBehaviour:
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
+    m_ColorMultiplier: 3.21
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
@@ -623,7 +623,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.546
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -730,7 +730,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: dc131bcc0b2b0444eb6c683e074e0fb6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d6f54b00c84fefb478a0db666084e4e9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -799,7 +799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.64493346, g: 0.5251572, b: 1, a: 1}
+  m_Color: {r: 0.19601159, g: 0.3773585, b: 0.14121275, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

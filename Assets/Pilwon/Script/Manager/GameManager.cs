@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [Header(" [ Game Var Header ]")]
     public int inStageCount;
     public bool[] isClear;
+    public bool[] isFirstClear;
 
     private Scene scene;
 
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         isClear = new bool[CubeManager.instance.cube.Length];
+        isFirstClear = new bool[CubeManager.instance.cube.Length];
     }
 
     private void Start()
