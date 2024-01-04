@@ -20,9 +20,9 @@ public class CubeManager : MonoBehaviour
         cube = GetComponentsInChildren<Cube>();
     }
 
-
     private void Start()
     {
+        GameManager.instance.isStop = false;
         for (int index = 0; index < cube.Length; index++) Init(index);
     }
 

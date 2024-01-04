@@ -9,13 +9,11 @@ public class SceneMoveButton : MonoBehaviour
 
     public void GameQuit()
     {
-        Time.timeScale = 1;
         TransitionManager.Instance().Transition("MainCube", transition, 0);
     }
 
     public void GameRetry()
     {
-        Time.timeScale = 1;
-        TransitionManager.Instance().Transition("Cube " + GameManager.instance.inStageCount, transition, 0);
+        TransitionManager.Instance().Transition(GameManager.instance.inStageCount + 2, transition, 0);
     }
 }

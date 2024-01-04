@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public bool[] isFirstClear;
     public int clearStageIndex = 0;
 
+    public bool isStop = false;
     private Scene scene;
 
     private void Awake()
@@ -53,13 +54,11 @@ public class GameManager : MonoBehaviour
 
     public void GameClear()
     {
-        Time.timeScale = 0;
         InGameUiManager.instance.panel[0].SetActive(true);
     }
 
     public void GameOver()
     {
-        Time.timeScale = 0;
         InGameUiManager.instance.panel[1].SetActive(true);
     }
 }

@@ -76,6 +76,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         curHp = maxHp;
+        GameManager.instance.isStop = false;
+
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
@@ -84,6 +86,7 @@ public class Player : MonoBehaviour
     {
         if(curHp <= 0)
         {
+            GameManager.instance.isStop = true;
             GameManager.instance.GameOver();
         }
 
@@ -91,10 +94,10 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
-                NeverDie = true;
+                StartCoroutine(NeverDieS());
                 StartCoroutine(LerpCameraSize(targetSize));
                 StartCoroutine(MoveToMonsters());
-                NeverDie = false;
+               
                 Skill3curTime = Skill3coolTime;
                 SkillUiManager.instance.skillCollTime_3.fillAmount = 1;
             }
@@ -176,6 +179,7 @@ public class Player : MonoBehaviour
     {
         if (isdash)
             return;
+        if (GameManager.instance.isStop) return;
 
         inputVec.x = Input.GetAxisRaw("Horizontal");
         inputVec.y = Input.GetAxisRaw("Vertical");
@@ -452,7 +456,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag == "MonsterAttack" && !NeverDie)
         {
-            curHp--;
+            curHp -= 1;
             //StartCoroutine(RedCor());
             CameraShake.instance.Shake();
             StartCoroutine(NeverDieCor());
@@ -482,7 +486,12 @@ public class Player : MonoBehaviour
         spriteRenderer.color = playerA;
     }
 
-
+    IEnumerator NeverDieS()
+    {
+        NeverDie = true;
+        yield return new WaitForSeconds(5f);
+        NeverDie = false;
+    }
 
     IEnumerator MoveToMonsters()
     {

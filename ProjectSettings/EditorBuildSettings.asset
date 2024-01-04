@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Cube 2.unity
     guid: acddd5980a4dc8042bc4a7033b7772b9
+  - enabled: 1
+    path: Assets/Scenes/Cube 3.unity
+    guid: 1f60161894934cb4382b856528a9ae2d
   m_configObjects: {}

@@ -87,9 +87,11 @@ public class MiniBossOne : MonoBehaviour
         Hpbar2.value = Mathf.Lerp(Hpbar2.value, (float)CurHP / (float)MaxHP, Time.deltaTime * 4); ;
         if (CurHP <= 0)
         {
+            GameManager.instance.GameClear();
+            GameManager.instance.isStop = true;
+
             if (GameManager.instance.isClear[GameManager.instance.inStageCount]) 
             {
-                GameManager.instance.GameClear();
                 Destroy(gameObject);
                 return; 
             }
