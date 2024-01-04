@@ -326,7 +326,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.16, y: 3.83}
+  m_Size: {x: 3.16, y: 2.36}
   m_EdgeRadius: 0
 --- !u!212 &40136462
 SpriteRenderer:
@@ -509,8 +509,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
-  m_fontSizeBase: 72
+  m_fontSize: 65
+  m_fontSizeBase: 65
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -597,7 +597,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 31}
-  m_SizeDelta: {x: 300, y: 130}
+  m_SizeDelta: {x: 400, y: 130}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &151418769
 MonoBehaviour:
@@ -612,7 +612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 0
+    m_Mode: 3
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -741,6 +741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f89490394e4c6240a767b5217453cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transition: {fileID: 11400000, guid: b0126e1e0c6c2a04895d564bd230dfb9, type: 2}
   cube: []
   UnlcokSprite:
   - {fileID: 21300000, guid: 1c76f1c8d5fe1f94d9611d54e798e60f, type: 3}
@@ -814,7 +815,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.16, y: 3.83}
+  m_Size: {x: 3.16, y: 2.38}
   m_EdgeRadius: 0
 --- !u!212 &175640819
 SpriteRenderer:
@@ -1054,6 +1055,7 @@ MonoBehaviour:
   inStageCount: 0
   isClear: 
   isFirstClear: 
+  clearStageIndex: 0
 --- !u!1 &287204710
 GameObject:
   m_ObjectHideFlags: 0
@@ -3342,7 +3344,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 55}
-  m_SizeDelta: {x: 450, y: 570}
+  m_SizeDelta: {x: 425, y: 560}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1105806229
 MonoBehaviour:
@@ -4249,8 +4251,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 55}
-  m_SizeDelta: {x: 450, y: 570}
+  m_AnchoredPosition: {x: 0, y: 59}
+  m_SizeDelta: {x: 425, y: 560}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1422008205
 MonoBehaviour:
@@ -4378,7 +4380,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.16, y: 3.83}
+  m_Size: {x: 3.07, y: 2.35}
   m_EdgeRadius: 0
 --- !u!212 &1440974539
 SpriteRenderer:
@@ -4530,8 +4532,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
-  m_fontSizeBase: 72
+  m_fontSize: 65
+  m_fontSizeBase: 65
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4767,6 +4769,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1496924343}
   m_CullTransparentMesh: 1
+--- !u!1 &1526526970
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1526526972}
+  - component: {fileID: 1526526971}
+  m_Layer: 0
+  m_Name: TransitionmManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1526526971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526526970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61430b0086307cc4da3ccc8d39ae88da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionTemplate: {fileID: 5276914992623515724, guid: 616d511151a6c554caddf1c754e4f91d, type: 3}
+--- !u!4 &1526526972
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526526970}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1527040480
 GameObject:
   m_ObjectHideFlags: 0
@@ -5215,7 +5262,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 55}
-  m_SizeDelta: {x: 450, y: 570}
+  m_SizeDelta: {x: 425, y: 560}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1719587386
 MonoBehaviour:
@@ -5505,8 +5552,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
-  m_fontSizeBase: 72
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5843,8 +5890,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc17fdff1b3b9394bac7baa43aa38a9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transition: {fileID: 11400000, guid: b0126e1e0c6c2a04895d564bd230dfb9, type: 2}
   icon: {fileID: 1031001055}
   cardName: {fileID: 402995081}
+  button: {fileID: 151418769}
+  buttonText: {fileID: 563338826}
 --- !u!114 &1875698144
 MonoBehaviour:
   m_ObjectHideFlags: 0

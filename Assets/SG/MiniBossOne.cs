@@ -89,11 +89,14 @@ public class MiniBossOne : MonoBehaviour
         {
             if (GameManager.instance.isClear[GameManager.instance.inStageCount]) 
             {
+                GameManager.instance.GameClear();
                 Destroy(gameObject);
                 return; 
             }
             GameManager.instance.isClear[GameManager.instance.inStageCount] = true;
             PlayerPrefs.SetInt("isClear" + GameManager.instance.inStageCount, 1);
+            GameManager.instance.clearStageIndex++;
+            PlayerPrefs.SetInt("ClearIndex", GameManager.instance.clearStageIndex);
 
             Destroy(gameObject);
         }

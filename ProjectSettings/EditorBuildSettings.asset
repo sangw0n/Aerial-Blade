@@ -6,30 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/StartScene.unity
+    guid: abbb3821107eecd4c81111c631c6e5fd
+  - enabled: 1
+    path: Assets/Scenes/MainCube.unity
+    guid: 7006749e453c88b4683cb23b736ddc82
   - enabled: 1
     path: Assets/Scenes/Cube 0.unity
-    guid: 65ea81516ef6c46419622fc2e9634470
+    guid: 48288bf983c899d4e8d84c6cf32c05bd
   - enabled: 1
     path: Assets/Scenes/Cube 1.unity
-    guid: ca7b228288ca9ad449b48b1ed9898387
+    guid: 810dea22a19304944ae3e108026cf9fe
   - enabled: 1
     path: Assets/Scenes/Cube 2.unity
-    guid: 1fb05b7aa9e13974d8fc230147d2487b
-  - enabled: 1
-    path: Assets/Scenes/Cube 3.unity
-    guid: 5977638faef9a4c47a5261896f073fe4
-  - enabled: 1
-    path: Assets/Scenes/Cube 4.unity
-    guid: b96614b5acc569e45bd3f07029719428
-  - enabled: 1
-    path: Assets/Scenes/Cube 5.unity
-    guid: a9b864b59e1679c418c3e8f661fae848
-  - enabled: 1
-    path: Assets/Scenes/Cube 6.unity
-    guid: e374d102a39d5cc4a8e0f4b63bcb3aec
-  - enabled: 1
-    path: Assets/Scenes/Cube 7.unity
-    guid: 5dcde4d88d6410b4e96e47c75b82e952
+    guid: acddd5980a4dc8042bc4a7033b7772b9
   m_configObjects: {}

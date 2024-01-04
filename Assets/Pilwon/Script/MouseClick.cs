@@ -47,14 +47,15 @@ public class MouseClick : MonoBehaviour
 
             if (hit.collider != null)
             {
-                if (!hit.collider.gameObject.CompareTag("Cube")) return;
+                if (!hit.collider.gameObject.CompareTag("Cube") || isZooming) return;
                 DevCube devCube = hit.collider.gameObject.GetComponent<DevCube>();
 
-                if(devCube.devState == DevState.Dev)
+                if(devCube.devState == DevState.Dev && !isZoom)
                 {
                     isDevNotice = true;
                     if(true) StartCoroutine(DevNotice());
                     Debug.Log("°³¹ßÁß...");
+                    return;
                 }
                 else if(devCube.devState == DevState.Complete)
                 {

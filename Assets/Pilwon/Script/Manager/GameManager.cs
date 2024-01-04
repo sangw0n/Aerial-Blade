@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public int inStageCount;
     public bool[] isClear;
     public bool[] isFirstClear;
+    public int clearStageIndex = 0;
 
     private Scene scene;
 
@@ -41,11 +42,24 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("Gold", gold);
         }
 
+        clearStageIndex = PlayerPrefs.GetInt("ClearIndex");
         gold = PlayerPrefs.GetInt("Gold");
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha0)) SceneManager.LoadScene("MainCube");
+    }
+
+    public void GameClear()
+    {
+        Time.timeScale = 0;
+        InGameUiManager.instance.panel[0].SetActive(true);
+    }
+
+    public void GameOver()
+    {
+        Time.timeScale = 0;
+        InGameUiManager.instance.panel[1].SetActive(true);
     }
 }

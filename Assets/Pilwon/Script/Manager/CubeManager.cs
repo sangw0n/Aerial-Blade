@@ -20,9 +20,10 @@ public class CubeManager : MonoBehaviour
         cube = GetComponentsInChildren<Cube>();
     }
 
+
     private void Start()
     {
-        for (int index = 0; index < cube.Length; index++) Init(index); 
+        for (int index = 0; index < cube.Length; index++) Init(index);
     }
 
     private void Update()

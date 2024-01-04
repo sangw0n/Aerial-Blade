@@ -4,7 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class Player : MonoBehaviour
 {
     public float targetSize = 5f; // 목표 카메라 크기
@@ -78,12 +77,15 @@ public class Player : MonoBehaviour
         curHp = maxHp;
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-
     }
 
     void Update()
     {
-       
+        if(curHp <= 0)
+        {
+            GameManager.instance.GameOver();
+        }
+
         if (Skill3curTime <= 0)
         {
             if (Input.GetKeyDown(KeyCode.F))

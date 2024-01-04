@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EasyTransition;
 
 public class StatManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class StatManager : MonoBehaviour
     public float baseAtt;
     public float baseCoolTime;
     public float baseHealth;
+
 
 
     public float speed;
@@ -35,7 +37,6 @@ public class StatManager : MonoBehaviour
     public void Init()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-
         player.maxHp = maxHealth;
         player.curHp = maxHealth;
         player.HitDamage = att;
