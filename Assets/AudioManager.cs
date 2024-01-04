@@ -12,12 +12,21 @@ public class AudioManager : MonoBehaviour
     float initVolume;
     int curSong;
 
-    void Awake()
+   void Awake()
+{
+    instance = this;
+    aud = gameObject.GetComponent<AudioSource>();
+
+    // Check if AudioSource component is attached
+    if (aud == null)
     {
-        instance = this;
-        aud = gameObject.GetComponent<AudioSource>();
-        initVolume = aud.volume;
+        // If not, add AudioSource component
+        aud = gameObject.AddComponent<AudioSource>();
     }
+
+    initVolume = aud.volume;
+}
+
 
     public IEnumerator SwitchSong(int index)
     {

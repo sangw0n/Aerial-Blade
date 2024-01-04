@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
 
 
 public class MiniBossOne : MonoBehaviour
 {
+    Animator anim;
+    [SerializeField] int BossNum;
     [SerializeField] float speed;
     [SerializeField] float stoppingDistance;
     [SerializeField] float attackCooldown = 2f;
@@ -32,14 +35,29 @@ public class MiniBossOne : MonoBehaviour
     Rigidbody2D rigid;
     SpriteRenderer spriter;
 
+    [Header("보스2")]
+    [SerializeField]
+    public Vector2 boxSize;
+    public Transform boxpos;
     float timeSinceLastAttack = 0f;
-
+    bool Attacktrue = true;
+    [SerializeField]
+    GameObject StunPtc;
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriter = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
-
+   void Start()
+    {
+        if (BossNum == 2)
+        {
+            StartCoroutine(BossTwoAtk());
+            StartCoroutine(BossTwoDash());
+        }
+        
+    }
     void Update()
     {
         Hpbar.value = Mathf.Lerp(Hpbar.value, (float)CurHP / (float)MaxHP, Time.deltaTime * 20); ;
@@ -58,6 +76,57 @@ public class MiniBossOne : MonoBehaviour
         }
     }
     void FixedUpdate()
+    {
+        if (BossNum == 1)
+        {
+            BossOne();
+        }
+        if (BossNum == 2)
+        {
+            BossTwo();
+           
+        }
+    }
+
+    void LateUpdate()
+    {
+        if (!isLive)
+            return;
+
+        GameObject player = GameObject.FindGameObjectWithTag(playerTag);
+
+        if (player != null)
+        {
+            if (player.transform.position.x < transform.position.x)
+            {
+                transform.localScale = new Vector3(3, 3, 3);
+            }
+            else
+            {
+                transform.localScale = new Vector3(-3, 3, 3);
+            }
+        }
+    }
+    public void TakeDamage(float damage)
+    {
+        Destroy(Instantiate(HitPtc, transform.position, Quaternion.identity), 3f);
+        Destroy(Instantiate(Damagetext, transform.position + new Vector3(0,1.5f,0), Quaternion.identity), 3f);
+        CurHP = CurHP - damage;
+        CameraShake.instance.Shake();
+
+    }
+
+
+
+
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+    void BossOne()
     {
         if (!isLive)
             return;
@@ -100,32 +169,111 @@ public class MiniBossOne : MonoBehaviour
         }
     }
 
-    void LateUpdate()
+
+
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+    void BossTwo()
     {
         if (!isLive)
             return;
 
+        // 플레이어 찾기
         GameObject player = GameObject.FindGameObjectWithTag(playerTag);
+        
+        if (player == null)
+            return;
 
-        if (player != null)
+        Vector2 dirVec = player.transform.position - transform.position;
+        float distanceToPlayer = dirVec.magnitude;
+
+      
+           
+            Vector2 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime;
+            rigid.MovePosition(rigid.position + nextVec);
+       
+
+
+    }
+    IEnumerator BossTwoAtk()
+    {
+        while (true)
         {
-            if (player.transform.position.x < transform.position.x)
+            Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(boxpos.position, boxSize, 0);
+            bool hasPlayerCollision = false;
+
+            foreach (Collider2D collider in collider2Ds)
             {
-                transform.localScale = new Vector3(3, 3, 3);
+                if (collider != null)
+                {
+                    if (collider.tag == "Player" && Attacktrue)
+                    {
+                        anim.SetBool("Attack", true);
+                        yield return new WaitForSeconds(0.45f);
+                        collider.GetComponent<Player>().TakeDamage(1);
+                        hasPlayerCollision = true;
+                    }
+                }
             }
-            else
+
+            if (!hasPlayerCollision)
             {
-                transform.localScale = new Vector3(-3, 3, 3);
+                anim.SetBool("Attack", false);
             }
+
+            yield return new WaitForSeconds(1f);
         }
     }
-    public void TakeDamage(float damage)
+
+    IEnumerator BossTwoDash()
     {
-        Destroy(Instantiate(HitPtc, transform.position, Quaternion.identity), 3f);
-        Destroy(Instantiate(Damagetext, transform.position + new Vector3(0,1.5f,0), Quaternion.identity), 3f);
-        CurHP = CurHP - damage;
-        CameraShake.instance.Shake();
+        while(true){
+            yield return new WaitForSeconds(1f);
+            speed = 10;
+            anim.SetBool("isMoving", true);
+        yield return new WaitForSeconds(1.5f);
+            anim.SetBool("isMoving", false);
+            speed = 0;
+            Attacktrue = false;
+            Destroy(Instantiate(StunPtc, transform.position + new Vector3(0, 4, 0), Quaternion.Euler(-90f, 0f, 0f)), 4f);
+
+            yield return new WaitForSeconds(4f);
+            speed = 3;
+            Attacktrue = true;
+            yield return new WaitForSeconds(7f);
+        }
+    }
+
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+    private void OnDrawGizmos()
+    {
+        if (BossNum == 2)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireCube(boxpos.position, boxSize);
+        }
+       
 
     }
-  
 }
+  
+
