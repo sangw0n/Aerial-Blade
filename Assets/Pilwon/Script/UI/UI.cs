@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public enum Ui { AttAbilityPanel, AttSpeedtAbilityPanel, HealthtAbilityPanel, DungeonPanel, GoldPanel}
+public enum Ui { AttAbilityPanel, AttSpeedtAbilityPanel, HealthtAbilityPanel, DungeonPanel, GoldPanel, DevNoticePanel}
 
 public class UI : MonoBehaviour
 {

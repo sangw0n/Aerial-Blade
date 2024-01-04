@@ -14,6 +14,7 @@ public class MouseClick : MonoBehaviour
 
     private bool isDoubleCheck;
     private bool isClick = true;
+    private bool isDevNotice = false;
 
     private bool isZooming;
     private bool isZoomOuting;
@@ -47,65 +48,75 @@ public class MouseClick : MonoBehaviour
             if (hit.collider != null)
             {
                 if (!hit.collider.gameObject.CompareTag("Cube")) return;
-                Cube cube = hit.collider.gameObject.GetComponent<Cube>();
+                DevCube devCube = hit.collider.gameObject.GetComponent<DevCube>();
 
-                StartCoroutine(ResetTapTimer());
-                tapCount++;
-                if (!isZoom && cube.cubeLock == CubeLock.Unlock)
+                if(devCube.devState == DevState.Dev)
                 {
-                    player.position = cube.spawnPos[1].position;
+                    isDevNotice = true;
+                    if(true) StartCoroutine(DevNotice());
+                    Debug.Log("°³¹ßÁß...");
                 }
-                zoomPos = cube.spawnPos[1].position;
-
-                if (tapCount >= 2 && !isZoom)
+                else if(devCube.devState == DevState.Complete)
                 {
-                    isClick = false;
-                    tapCount = 0;
-                    PSoundManager.instance.PlaySfx(PSoundManager.sfx.Select);
-
-                    //if (isZooming) return;
-                    Dungeon dungeon = InGameManager.instance.dungeon.GetComponent<Dungeon>();
-                    dungeon.Init(cube.bossData, cube.id);
-                    MenuUiManager.instance.Show(new Vector3(715, -48, 0), (int)Ui.DungeonPanel);
-
-                    if(cube.cubeLock == CubeLock.Unlock)
+                    Cube cube = hit.collider.gameObject.GetComponent<Cube>();
+                    StartCoroutine(ResetTapTimer());
+                    tapCount++;
+                    if (!isZoom && cube.cubeLock == CubeLock.Unlock)
                     {
+                        player.position = cube.spawnPos[1].position;
+                    }
+                    zoomPos = cube.spawnPos[1].position;
+
+                    if (tapCount >= 2 && !isZoom)
+                    {
+                        isClick = false;
+                        tapCount = 0;
+                        PSoundManager.instance.PlaySfx(PSoundManager.sfx.Select);
+
+                        //if (isZooming) return;
+                        Dungeon dungeon = InGameManager.instance.dungeon.GetComponent<Dungeon>();
+                        dungeon.Init(cube.bossData, cube.id);
+                        MenuUiManager.instance.Show(new Vector3(715, -48, 0), (int)Ui.DungeonPanel);
+
+                        if (cube.cubeLock == CubeLock.Unlock)
+                        {
+                            switch (cube.id)
+                            {
+                                case 0:
+                                case 1:
+                                case 2:
+                                    MenuUiManager.instance.Show(new Vector3(0, 435, 0), (int)Ui.GoldPanel);
+                                    MenuUiManager.instance.Show(new Vector3(-715, -48, 0), cube.id);
+                                    break;
+
+                                default:
+                                    break;
+                            }
+                        }
+                        PSoundManager.instance.PlaySfx(PSoundManager.sfx.Swipe);
+                        isZooming = true;
+                        isZoom = true;
+                    }
+                    if (tapCount >= 2 && isZoom)
+                    {
+                        isClick = false;
+                        tapCount = 0;
+
+                        //if (isZoomOuting) return;
+                        MenuUiManager.instance.Hide(new Vector3(1250, -48, 0), (int)Ui.DungeonPanel);
+                        MenuUiManager.instance.Hide(new Vector3(0, 714, 0), (int)Ui.GoldPanel);
                         switch (cube.id)
                         {
                             case 0:
                             case 1:
                             case 2:
-                                MenuUiManager.instance.Show(new Vector3(0, 435, 0), (int)Ui.GoldPanel);
-                                MenuUiManager.instance.Show(new Vector3(-715, -48, 0), cube.id);
-                                break;
-
-                            default:
+                                MenuUiManager.instance.Hide(new Vector3(-1250, 0, 0), cube.id);
                                 break;
                         }
-                    }
-                    PSoundManager.instance.PlaySfx(PSoundManager.sfx.Swipe);
-                    isZooming = true;
-                    isZoom = true;
-                }
-                if (tapCount >= 2 && isZoom)
-                {
-                    isClick = false;
-                    tapCount = 0;
 
-                    //if (isZoomOuting) return;
-                    MenuUiManager.instance.Hide(new Vector3(1250, -48, 0), (int)Ui.DungeonPanel);
-                    MenuUiManager.instance.Hide(new Vector3(0, 714, 0), (int)Ui.GoldPanel);
-                    switch (cube.id)
-                    {
-                        case 0:
-                        case 1:
-                        case 2:
-                            MenuUiManager.instance.Hide(new Vector3(-1250, 0, 0), cube.id);
-                            break;
+                        isZoomOuting = true;
+                        isZoom = false;
                     }
-
-                    isZoomOuting = true;
-                    isZoom = false;
                 }
             }
         }
@@ -145,6 +156,16 @@ public class MouseClick : MonoBehaviour
             isZoomOuting = false;
             isClick = true;
         }
+    }
+
+    private IEnumerator DevNotice()
+    {
+        isDevNotice = false;
+        MenuUiManager.instance.Show(new Vector3(761, 448, 0), 5);
+        PSoundManager.instance.PlaySfx(PSoundManager.sfx.Error);
+        yield return new WaitForSecondsRealtime(2.0f);
+        MenuUiManager.instance.Hide(new Vector3(1284, 448, 0), 5);
+        isDevNotice = true;
     }
 
     private IEnumerator ResetTapTimer()

@@ -10,6 +10,7 @@ TagManager:
   - BossMonster
   - Cube
   - MonsterAttack
+  - Dev
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - Monster
   - BossMonster
   - Player
-  - 
+  - Cube
   - 
   - 
   - 

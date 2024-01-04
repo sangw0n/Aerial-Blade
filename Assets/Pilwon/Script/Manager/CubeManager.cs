@@ -10,7 +10,7 @@ public class CubeManager : MonoBehaviour
 
     public Cube[] cube;
     public Sprite[] UnlcokSprite;
-    public Sprite LockSprite;
+    public Sprite[] LockSprite;
 
     private void Awake()
     {
@@ -44,7 +44,7 @@ public class CubeManager : MonoBehaviour
         }
         else
         {
-            sprite.sprite = LockSprite;
+            sprite.sprite = LockSprite[index];
             cube[index].cubeLock = CubeLock.Lock;
         }
     }

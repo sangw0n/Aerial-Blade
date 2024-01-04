@@ -27,6 +27,8 @@ public class MenuUiManager : MonoBehaviour
 
     public void Hide(Vector3 pos, int uiNum)
     {
+        button.gameObject.SetActive(true);
+
         RectTransform rect = MenuUi[uiNum].GetComponent<RectTransform>();
         rect.DOLocalMove(pos, 0.75f, false);
     }

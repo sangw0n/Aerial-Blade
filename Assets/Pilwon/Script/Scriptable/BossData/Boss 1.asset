@@ -17,4 +17,4 @@ MonoBehaviour:
   maxHealth: 1000
   speed: 3
   att: 5
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: e57031c3b5b1a074f8c637dc9a884a35, type: 3}
