@@ -50,6 +50,7 @@ public class LastBoss : MonoBehaviour
 
     IEnumerator Paton()
     {
+        yield return new WaitForSeconds(3);
         while (true)
         {
 

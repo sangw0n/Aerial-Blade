@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b60bbc2a654c241809f7db44982ec4, type: 3}
   m_Name: Boss 4
   m_EditorClassIdentifier: 
-  bossName: "\uC815\uC5EC\uD604"
+  bossName: TYPE:NULL
   health: 0
   maxHealth: 1000
   speed: 3
   att: 5
-  icon: {fileID: 21300000, guid: 16f03dd855ba50f43b512d7216701be4, type: 3}
+  sprite: {fileID: 21300000, guid: e2e29e2f0cc30ee4aa91e80f3d70c068, type: 3}
