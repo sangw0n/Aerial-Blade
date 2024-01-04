@@ -17,7 +17,7 @@ public class MonsterSpawner : MonoBehaviour
     public Transform BossSpawnPoint;
     public int MonsterSpawnCOunt;
 
-    float Wait = 0.4f;
+    float Wait = 1.4f;
     [SerializeField]
     int BossNum;
 
@@ -50,10 +50,10 @@ public class MonsterSpawner : MonoBehaviour
             MonsterSpawnCOunt++;
             int randomIndex = Random.Range(0, SpawnPos.Length);
             Instantiate(Monster, SpawnPos[randomIndex].position, Quaternion.identity);
-            if (MonsterSpawnCOunt == 50)
+            if (MonsterSpawnCOunt == 30)
             {
                 Instantiate(BossMonster, BossSpawnPoint.transform.position, Quaternion.identity);
-                Wait = 10000f;
+                Wait = 3;
             }
             yield return new WaitForSeconds(Wait);
         }
@@ -68,10 +68,10 @@ public class MonsterSpawner : MonoBehaviour
             MonsterSpawnCOunt++;
             int randomIndex = Random.Range(0, SpawnPos.Length);
             Instantiate(Monster2, SpawnPos[randomIndex].position, Quaternion.identity);
-            if (MonsterSpawnCOunt == 3)
+            if (MonsterSpawnCOunt == 30)
             {
                 Instantiate(BossMonsterTwo, BossSpawnPoint.transform.position, Quaternion.identity);
-                Wait = 10000f;
+                Wait = 3;
             }
             yield return new WaitForSeconds(Wait);
         }
@@ -86,10 +86,10 @@ public class MonsterSpawner : MonoBehaviour
             MonsterSpawnCOunt++;
             int randomIndex = Random.Range(0, SpawnPos.Length);
             Instantiate(Monster3, SpawnPos[randomIndex].position, Quaternion.identity);
-            if (MonsterSpawnCOunt == 3)
+            if (MonsterSpawnCOunt == 30)
             {
                 Instantiate(BossMonsterThree, BossSpawnPoint.transform.position, Quaternion.identity);
-                Wait = 10000f;
+                Wait = 3;
             }
             yield return new WaitForSeconds(Wait);
         }

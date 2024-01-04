@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -196, y: 377}
+  m_AnchoredPosition: {x: -196, y: 400.6825}
   m_SizeDelta: {x: 287.582, y: 53.3686}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8378918141334289603
@@ -278,7 +278,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -4, y: -41}
+  m_AnchoredPosition: {x: -4, y: -17.317505}
   m_SizeDelta: {x: 1182.5591, y: 160.2581}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1951311860058474586
@@ -588,9 +588,15 @@ MonoBehaviour:
   Hpbar: {fileID: 7237285105258952699}
   Hpbar2: {fileID: 1951311860058474586}
   Damagetext: {fileID: 1470639079662069097, guid: ab750860f0873b44d8160485eb6fda06, type: 3}
+  spriter: {fileID: 0}
   boxSize: {x: 5.09, y: 3.05}
   boxpos: {fileID: 5656449193291241782}
   StunPtc: {fileID: 1846532664448058, guid: 20980e90dd2e73b419275714d5c124c4, type: 3}
+  Boss3Ptc: {fileID: 0}
+  Boss3Ptc2: {fileID: 0}
+  boxSize2: {x: 0, y: 0}
+  boxpos2: {fileID: 0}
+  Danger: {fileID: 0}
 --- !u!50 &7492908794774483205
 Rigidbody2D:
   serializedVersion: 4
@@ -1057,7 +1063,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -4, y: -36.682495}
+  m_AnchoredPosition: {x: -4, y: -13}
   m_SizeDelta: {x: 1188.1102, y: 171.698}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &7237285105258952699
