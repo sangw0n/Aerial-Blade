@@ -59,11 +59,13 @@ public class MouseClick : MonoBehaviour
                 else if(devCube.devState == DevState.Complete)
                 {
                     Cube cube = hit.collider.gameObject.GetComponent<Cube>();
+                    int selectUi = cube.id;
+
                     StartCoroutine(ResetTapTimer());
                     tapCount++;
                     if (!isZoom && cube.cubeLock == CubeLock.Unlock)
                     {
-                        player.position = cube.spawnPos[1].position;
+                        player.position = cube.spawnPos[2].position;
                     }
                     zoomPos = cube.spawnPos[1].position;
 
@@ -105,14 +107,7 @@ public class MouseClick : MonoBehaviour
                         //if (isZoomOuting) return;
                         MenuUiManager.instance.Hide(new Vector3(1250, -48, 0), (int)Ui.DungeonPanel);
                         MenuUiManager.instance.Hide(new Vector3(0, 714, 0), (int)Ui.GoldPanel);
-                        switch (cube.id)
-                        {
-                            case 0:
-                            case 1:
-                            case 2:
-                                MenuUiManager.instance.Hide(new Vector3(-1250, 0, 0), cube.id);
-                                break;
-                        }
+                        for(int i = 0; i < 3; i++) MenuUiManager.instance.Hide(new Vector3(-1250, 0, 0), i);
 
                         isZoomOuting = true;
                         isZoom = false;
