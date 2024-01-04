@@ -125,8 +125,8 @@ public class MiniBossOne : MonoBehaviour
             return;
 
         GameObject player = GameObject.FindGameObjectWithTag(playerTag);
-
-        if (player != null)
+       
+        if (player != null )
         {
             if (player.transform.position.x < transform.position.x)
             {
@@ -342,7 +342,7 @@ public class MiniBossOne : MonoBehaviour
                     if (collider.tag == "Player")
                     {
                         
-                        collider.GetComponent<Player>().TakeDamage(1);
+                        collider.GetComponent<Player>().TakeDamage(5);
                     }
                 }
             }
