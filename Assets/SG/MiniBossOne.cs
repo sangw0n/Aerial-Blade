@@ -104,6 +104,7 @@ public class MiniBossOne : MonoBehaviour
             else
             {
                 transform.localScale = new Vector3(-3, 3, 3);
+            
             }
         }
     }
