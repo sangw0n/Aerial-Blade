@@ -15,11 +15,10 @@ public class Dungeon : MonoBehaviour
 
     public void Init(BossData bossData, int index)
     {
-        bossName = bossData.bossName;
         this.index = index;
-
+        bossName = bossData.bossName;
+        cardName.text = "º¸½º " + bossName;
         icon.sprite = bossData.sprite;
-
     }
 
     public void SceneMove()
