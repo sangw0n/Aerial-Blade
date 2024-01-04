@@ -17,6 +17,7 @@ public class AudioManager : MonoBehaviour
         instance = this;
         aud = gameObject.GetComponent<AudioSource>();
         initVolume = aud.volume;
+
     }
 
     public IEnumerator SwitchSong(int index)

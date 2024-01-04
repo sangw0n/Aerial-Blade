@@ -17,4 +17,4 @@ MonoBehaviour:
   maxHealth: 1000
   speed: 3
   att: 5
-  icon: {fileID: 21300000, guid: 6d9ba586af73bfe428353674b0b35fd5, type: 3}
+  icon: {fileID: 21300000, guid: 16f03dd855ba50f43b512d7216701be4, type: 3}

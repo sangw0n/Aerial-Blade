@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class MouseClick : MonoBehaviour
 {
@@ -60,11 +61,12 @@ public class MouseClick : MonoBehaviour
                 {
                     isClick = false;
                     tapCount = 0;
+                    PSoundManager.instance.PlaySfx(PSoundManager.sfx.Select);
 
                     //if (isZooming) return;
                     Dungeon dungeon = InGameManager.instance.dungeon.GetComponent<Dungeon>();
                     dungeon.Init(cube.bossData, cube.id);
-                    MenuUiManager.instance.Show(new Vector3(715, 0, 0), (int)Ui.DungeonPanel);
+                    MenuUiManager.instance.Show(new Vector3(715, -48, 0), (int)Ui.DungeonPanel);
 
                     if(cube.cubeLock == CubeLock.Unlock)
                     {
@@ -74,13 +76,14 @@ public class MouseClick : MonoBehaviour
                             case 1:
                             case 2:
                                 MenuUiManager.instance.Show(new Vector3(0, 435, 0), (int)Ui.GoldPanel);
-                                MenuUiManager.instance.Show(new Vector3(-715, 0, 0), cube.id);
+                                MenuUiManager.instance.Show(new Vector3(-715, -48, 0), cube.id);
                                 break;
 
                             default:
                                 break;
                         }
                     }
+                    PSoundManager.instance.PlaySfx(PSoundManager.sfx.Swipe);
                     isZooming = true;
                     isZoom = true;
                 }
@@ -90,7 +93,7 @@ public class MouseClick : MonoBehaviour
                     tapCount = 0;
 
                     //if (isZoomOuting) return;
-                    MenuUiManager.instance.Hide(new Vector3(1250, 0, 0), (int)Ui.DungeonPanel);
+                    MenuUiManager.instance.Hide(new Vector3(1250, -48, 0), (int)Ui.DungeonPanel);
                     MenuUiManager.instance.Hide(new Vector3(0, 714, 0), (int)Ui.GoldPanel);
                     switch (cube.id)
                     {

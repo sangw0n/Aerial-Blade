@@ -18,8 +18,8 @@ public class Dungeon : MonoBehaviour
         bossName = bossData.bossName;
         this.index = index;
 
-        icon.sprite = bossData.icon;
-        cardName.text = bossName;
+        icon.sprite = bossData.sprite;
+
     }
 
     public void SceneMove()

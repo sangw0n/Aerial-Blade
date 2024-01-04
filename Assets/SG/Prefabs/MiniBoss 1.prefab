@@ -285,8 +285,6 @@ MonoBehaviour:
   Hpbar: {fileID: 6876391262903933544}
   Hpbar2: {fileID: 5483908333156081062}
   Damagetext: {fileID: 1470639079662069097, guid: ab750860f0873b44d8160485eb6fda06, type: 3}
-  newColor: {r: 0.7264151, g: 0, b: 0, a: 1}
-  spriteRenderer: {fileID: 0}
 --- !u!50 &4093589802370940438
 Rigidbody2D:
   serializedVersion: 4

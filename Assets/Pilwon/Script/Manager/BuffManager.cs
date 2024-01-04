@@ -32,6 +32,7 @@ public class BuffManager : MonoBehaviour
         {
             buff[index].level++;
             PlayerPrefs.SetInt("Ability" + index, buff[index].level);
+            PSoundManager.instance.PlaySfx(PSoundManager.sfx.buy);
 
             AbilityCard abilityCard = MenuUiManager.instance.MenuUi[index].gameObject.GetComponent<AbilityCard>();
             if (buff[index].level > buff[index].rate.Length - 1)
@@ -44,6 +45,10 @@ public class BuffManager : MonoBehaviour
             PlayerPrefs.SetInt("Gold", GameManager.instance.gold);
             Buff(index);
             abilityCard.Init();
+        }
+        else
+        {
+            PSoundManager.instance.PlaySfx(PSoundManager.sfx.Error);
         }
     }
 

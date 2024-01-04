@@ -13,5 +13,5 @@ public class BossData : ScriptableObject
     public float att;
 
     [Header("[ Boss Ui Var ]")]
-    public Sprite icon;
+    public Sprite sprite;
 }
