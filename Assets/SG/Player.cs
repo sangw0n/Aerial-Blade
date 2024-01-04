@@ -84,12 +84,14 @@ public class Player : MonoBehaviour
             {
                 StartCoroutine(MoveToMonsters());
                 Skill3curTime = Skill3coolTime;
+                SkillUiManager.instance.skillCollTime_3.fillAmount = 1;
             }
 
         }
         else
         {
             Skill3curTime -= Time.deltaTime;
+            SkillUiManager.instance.skillCollTime_3.fillAmount = Skill3curTime / Skill3coolTime;
         }
         Hpbar.value = Mathf.Lerp(Hpbar.value, (float)curHp / (float)maxHp, Time.deltaTime * 4); ;
         Move();
@@ -230,11 +232,14 @@ public class Player : MonoBehaviour
                 anim.SetTrigger("SKill1");
                 StartCoroutine(SkillCor());
                 SkillcurTime = SkillcoolTime; // 여기서 SkillcurTime을 초기화해야 합니다.
+                SkillUiManager.instance.skillCollTime_2.fillAmount = 1;
             }
         }
         else
         {
             SkillcurTime -= Time.deltaTime;
+            SkillUiManager.instance.skillCollTime_2.fillAmount = SkillcurTime / SkillcoolTime;
+
         }
     }
     void Skill2()
@@ -246,13 +251,14 @@ public class Player : MonoBehaviour
             {
                 StartCoroutine(SKill2Cor());
                 Skill2curTime = Skill2coolTime;
-
+                SkillUiManager.instance.skillCollTime_1.fillAmount = 1;
             }
 
         }
         else
         {
             Skill2curTime -= Time.deltaTime;
+            SkillUiManager.instance.skillCollTime_1.fillAmount = Skill2curTime / Skill2coolTime;
         }
 
     }
