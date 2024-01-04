@@ -1055,6 +1055,7 @@ MonoBehaviour:
   isClear: 
   isFirstClear: 
   clearStageIndex: 0
+  isStop: 0
 --- !u!1 &287204710
 GameObject:
   m_ObjectHideFlags: 0

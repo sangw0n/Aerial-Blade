@@ -21,7 +21,7 @@ public class Dungeon : MonoBehaviour
     {
         this.index = index;
         bossName = bossData.bossName;
-        cardName.text = "º¸½º " + bossName;
+        cardName.text = bossName;
         icon.sprite = bossData.sprite;
 
         if (index == 3 && GameManager.instance.clearStageIndex < CubeManager.instance.cube.Length - 2)

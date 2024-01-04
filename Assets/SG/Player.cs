@@ -97,6 +97,7 @@ public class Player : MonoBehaviour
                 StartCoroutine(NeverDieS());
                 StartCoroutine(LerpCameraSize(targetSize));
                 StartCoroutine(MoveToMonsters());
+                 
                
                 Skill3curTime = Skill3coolTime;
                 SkillUiManager.instance.skillCollTime_3.fillAmount = 1;
@@ -529,6 +530,7 @@ public class Player : MonoBehaviour
             // 몬스터의 위치로 이동합니다.
             Destroy(Instantiate(FlashPtc, transform.position, Quaternion.identity), 3f);
             StartCoroutine(MoveToTarget(monster.transform.position));
+
             AudioManager.instance.PlaySound(transform.position, 0, Random.Range(2f, 2.5f), 1);
             // 기다립니다. (이동이 완료될 때까지 대기)
             yield return new WaitForSeconds(0.1f); // 예시로 1초 대기 (조절 가능)

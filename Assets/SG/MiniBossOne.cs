@@ -190,6 +190,7 @@ public class MiniBossOne : MonoBehaviour
                 if (AttackCount < MaxCount)
                 {
                     attackCooldown = 0.2f;
+                    AudioManager.instance.PlaySound(transform.position, 3, Random.Range(0.7f, 1.2f), 1);
                     Destroy(Instantiate(bulletPrefab, transform.position, Quaternion.identity), 3f);
                     AttackCount++;
                     timeSinceLastAttack = Time.time;
