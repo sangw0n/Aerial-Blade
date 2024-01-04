@@ -8,6 +8,8 @@ public class MonsterSpawner : MonoBehaviour
     public GameObject Monster;
     public GameObject BossMonster;
     public GameObject BossMonsterTwo;
+    public GameObject BossMonsterThree;
+
     public Transform[] SpawnPos;
     public Transform BossSpawnPoint;
     public int MonsterSpawnCOunt;
@@ -24,6 +26,8 @@ public class MonsterSpawner : MonoBehaviour
             StartCoroutine(MonsterSpawn());
         if (BossNum == 2)
             StartCoroutine(MonsterSpawnTwo());
+        if (BossNum == 3)
+            StartCoroutine(MonsterSpawnThree());
     }
 
     // Update is called once per frame
@@ -70,5 +74,23 @@ public class MonsterSpawner : MonoBehaviour
         }
 
     }
-  
+    IEnumerator MonsterSpawnThree()
+    {
+
+        yield return new WaitForSeconds(5f);
+        while (true)
+        {
+            MonsterSpawnCOunt++;
+            int randomIndex = Random.Range(0, SpawnPos.Length);
+            Instantiate(Monster, SpawnPos[randomIndex].position, Quaternion.identity);
+            if (MonsterSpawnCOunt == 3)
+            {
+                Instantiate(BossMonsterThree, BossSpawnPoint.transform.position, Quaternion.identity);
+                Wait = 10000f;
+            }
+            yield return new WaitForSeconds(Wait);
+        }
+
+    }
+
 }

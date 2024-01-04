@@ -33,16 +33,32 @@ public class MiniBossOne : MonoBehaviour
     [SerializeField]
     GameObject Damagetext;
     Rigidbody2D rigid;
+    [SerializeField]
     SpriteRenderer spriter;
 
     [Header("보스2")]
     [SerializeField]
     public Vector2 boxSize;
     public Transform boxpos;
+  
     float timeSinceLastAttack = 0f;
     bool Attacktrue = true;
     [SerializeField]
     GameObject StunPtc;
+
+    [Header("보스3")]
+    [SerializeField]
+    GameObject Boss3Ptc;
+    [SerializeField]
+    GameObject Boss3Ptc2;
+    [SerializeField]
+    public Vector2 boxSize2;
+    public Transform boxpos2;
+    [SerializeField]
+    GameObject Danger;
+   
+
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -56,10 +72,17 @@ public class MiniBossOne : MonoBehaviour
             StartCoroutine(BossTwoAtk());
             StartCoroutine(BossTwoDash());
         }
-        
+        if (BossNum == 3)
+        {
+            StartCoroutine( BossThreeCor());
+        }
+      
+
+
     }
     void Update()
     {
+        
         Hpbar.value = Mathf.Lerp(Hpbar.value, (float)CurHP / (float)MaxHP, Time.deltaTime * 20); ;
         Hpbar2.value = Mathf.Lerp(Hpbar2.value, (float)CurHP / (float)MaxHP, Time.deltaTime * 4); ;
         if (CurHP <= 0)
@@ -85,6 +108,11 @@ public class MiniBossOne : MonoBehaviour
         {
             BossTwo();
            
+        }
+        if (BossNum == 3)
+        {
+            BossThree();
+
         }
     }
 
@@ -257,22 +285,87 @@ public class MiniBossOne : MonoBehaviour
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+    void BossThree()
+    {
+        if(!isLive)
+            return;
+
+        // 플레이어 찾기
+        GameObject player = GameObject.FindGameObjectWithTag(playerTag);
+
+        if (player == null)
+            return;
+
+        Vector2 dirVec = player.transform.position - transform.position;
+        float distanceToPlayer = dirVec.magnitude;
 
 
 
+        Vector2 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime;
+        rigid.MovePosition(rigid.position + nextVec);
+
+    }
+
+    IEnumerator BossThreeCor()
+    {   while (true) 
+      { 
+        yield return new WaitForSeconds(1f);
+
+        Destroy(Instantiate(Boss3Ptc, transform.position, Quaternion.identity), 3f);
+
+        spriter.enabled = false;
+            gameObject.tag = "Untagged";
+        yield return new WaitForSeconds(3f);
+       
+        // 플레이어의 위치에 다시 나타나는 로직...
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+           
+
+            transform.position = player.transform.position;
+            Danger.SetActive(true);
+            yield return new WaitForSeconds(1f);
+            Danger.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
+            Destroy(Instantiate(Boss3Ptc2, transform.position, Quaternion.identity), 3f);
+                gameObject.tag = "BossMonster";
+                Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(boxpos2.position, boxSize2, 0);
+
+            foreach (Collider2D collider in collider2Ds)
+            {
+                if (collider != null)
+                {
+                    if (collider.tag == "Player")
+                    {
+                        
+                        collider.GetComponent<Player>().TakeDamage(1);
+                    }
+                }
+            }
+
+            
+            spriter.enabled = true;
+        }
+            yield return new WaitForSeconds(3f);
+
+        }
+    }
 
 
-
-
-
-    private void OnDrawGizmos()
+private void OnDrawGizmos()
     {
         if (BossNum == 2)
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawWireCube(boxpos.position, boxSize);
+            
         }
-       
+        if (BossNum == 3) { 
+            Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(boxpos2.position, boxSize2);
+        }
+
 
     }
 }
