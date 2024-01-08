@@ -92,7 +92,7 @@ public class Player : MonoBehaviour
 
         if (Skill3curTime <= 0)
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 StartCoroutine(NeverDieS());
                 StartCoroutine(LerpCameraSize(targetSize));
@@ -180,7 +180,6 @@ public class Player : MonoBehaviour
     {
         if (isdash)
             return;
-        if (GameManager.instance.isStop) return;
 
         inputVec.x = Input.GetAxisRaw("Horizontal");
         inputVec.y = Input.GetAxisRaw("Vertical");
@@ -246,7 +245,7 @@ public class Player : MonoBehaviour
     {
         if (SkillcurTime <= 0)
         {
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.V))
             {
 
                 AudioManager.instance.PlaySound(transform.position, 2, Random.Range(1.4f, 1.7f), 1);
@@ -268,7 +267,7 @@ public class Player : MonoBehaviour
         if (Skill2curTime <= 0)
         {
 
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetKey(KeyCode.C))
             {
                 StartCoroutine(SKill2Cor());
                 Skill2curTime = Skill2coolTime;
@@ -319,7 +318,7 @@ public class Player : MonoBehaviour
     {
         if (DashcurTime <= 0)
         {
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 Instantiate(Dashpt, transform.position, Quaternion.identity);
                 StartCoroutine(Dashcor());

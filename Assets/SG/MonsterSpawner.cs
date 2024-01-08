@@ -49,7 +49,7 @@ public class MonsterSpawner : MonoBehaviour
             MonsterSpawnCOunt++;
             int randomIndex = Random.Range(0, SpawnPos.Length);
             Instantiate(Monster, SpawnPos[randomIndex].position, Quaternion.identity);
-            if (MonsterSpawnCOunt == 30)
+            if (MonsterSpawnCOunt == 10)
             {
                 Instantiate(BossMonster, BossSpawnPoint.transform.position, Quaternion.identity);
                 Wait = 3;
@@ -67,7 +67,7 @@ public class MonsterSpawner : MonoBehaviour
             MonsterSpawnCOunt++;
             int randomIndex = Random.Range(0, SpawnPos.Length);
             Instantiate(Monster2, SpawnPos[randomIndex].position, Quaternion.identity);
-            if (MonsterSpawnCOunt == 30)
+            if (MonsterSpawnCOunt == 10)
             {
                 Instantiate(BossMonsterTwo, BossSpawnPoint.transform.position, Quaternion.identity);
                 Wait = 3;
@@ -85,7 +85,7 @@ public class MonsterSpawner : MonoBehaviour
             MonsterSpawnCOunt++;
             int randomIndex = Random.Range(0, SpawnPos.Length);
             Instantiate(Monster3, SpawnPos[randomIndex].position, Quaternion.identity);
-            if (MonsterSpawnCOunt == 30)
+            if (MonsterSpawnCOunt == 10)
             {
                 Instantiate(BossMonsterThree, BossSpawnPoint.transform.position, Quaternion.identity);
                 Wait = 3;

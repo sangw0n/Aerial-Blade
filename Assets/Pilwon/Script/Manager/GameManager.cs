@@ -38,19 +38,15 @@ public class GameManager : MonoBehaviour
         {
             int clear = PlayerPrefs.GetInt("isClear" + i);
             isClear[i] = clear == 1 ? true : false;
+            if (i == 3 && GameManager.instance.isClear[i] == true) PlayerPrefs.DeleteAll();
         }
-        if(!PlayerPrefs.HasKey("Gold"))
+        if (!PlayerPrefs.HasKey("Gold"))
         {
             PlayerPrefs.SetInt("Gold", gold);
         }
 
         clearStageIndex = PlayerPrefs.GetInt("ClearIndex");
         gold = PlayerPrefs.GetInt("Gold");
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha0)) SceneManager.LoadScene("MainCube");
     }
 
     public void GameClear()

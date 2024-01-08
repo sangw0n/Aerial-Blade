@@ -57,7 +57,7 @@ public class Cube : MonoBehaviour
 
     private IEnumerator WaitTime()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(1.5f);
         CubeManager.instance.CubeSave(id, BossClear.Clear);
     }
 }
