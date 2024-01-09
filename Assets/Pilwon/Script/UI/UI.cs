@@ -24,5 +24,5 @@ public class UI : MonoBehaviour
                 text.text = string.Format("{0:N0}", GameManager.instance.gold);
                 break;
         }
-    }
+    }   
 }

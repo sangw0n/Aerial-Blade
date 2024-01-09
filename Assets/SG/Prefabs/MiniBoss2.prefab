@@ -582,8 +582,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 0}
   AttackCount: 0
   MaxCount: 0
-  MaxHP: 1000
-  CurHP: 1000
+  MaxHP: 3000
+  CurHP: 3000
   HitPtc: {fileID: 1753279311565200, guid: a5986da717b87c046b2b6f8a0c583b45, type: 3}
   Hpbar: {fileID: 7237285105258952699}
   Hpbar2: {fileID: 1951311860058474586}
